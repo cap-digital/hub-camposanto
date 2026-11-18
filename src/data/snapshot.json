@@ -1,0 +1,2486 @@
+{
+ "cliente": "Cemitério Campo Santo",
+ "periodo": {
+  "inicio": "2026-01-01",
+  "fim": "2026-11-15"
+ },
+ "atualizadoEm": "2026-11-18T12:55:51.539Z",
+ "totais": {
+  "investimento": 27788.88,
+  "impressoes": 1044459,
+  "cliques": 12498,
+  "views": 65825,
+  "conversoes": 361,
+  "ctr": 0.01197,
+  "cpm": 26.61,
+  "cpc": 2.22,
+  "cpv": 0.422,
+  "meses": 11,
+  "campanhas": 2
+ },
+ "plataformas": [
+  {
+   "investimento": 20788.88,
+   "impressoes": 146060,
+   "cliques": 10834,
+   "views": 0,
+   "conversoes": 361,
+   "ctr": 0.07417,
+   "cpm": 142.33,
+   "cpc": 1.92,
+   "cpv": 0,
+   "plataforma": "Google",
+   "estrategia": "Pesquisa",
+   "rotulo": "Pesquisa",
+   "campanha": "Institucional AON",
+   "inicio": "2026-01-01",
+   "fim": "2026-11-15"
+  },
+  {
+   "investimento": 3000.0,
+   "impressoes": 728168,
+   "cliques": 1643,
+   "views": 10793,
+   "conversoes": 0,
+   "ctr": 0.00226,
+   "cpm": 4.12,
+   "cpc": 1.83,
+   "cpv": 0.278,
+   "plataforma": "Meta",
+   "estrategia": "Alcance",
+   "rotulo": "Meta Alcance",
+   "campanha": "Cremação",
+   "inicio": "2026-10-05",
+   "fim": "2026-11-13"
+  },
+  {
+   "investimento": 4000.0,
+   "impressoes": 170231,
+   "cliques": 21,
+   "views": 55032,
+   "conversoes": 0,
+   "ctr": 0.00012,
+   "cpm": 23.5,
+   "cpc": 190.48,
+   "cpv": 0.073,
+   "plataforma": "YouTube",
+   "estrategia": "Visualização",
+   "rotulo": "YouTube",
+   "campanha": "Cremação",
+   "inicio": "2026-10-16",
+   "fim": "2026-11-13"
+  }
+ ],
+ "meses": [
+  {
+   "mes": "2026-01",
+   "rotulo": "jan",
+   "nome": "janeiro",
+   "parcial": false,
+   "google": {
+    "investimento": 1999.99,
+    "impressoes": 13017,
+    "cliques": 930,
+    "views": 0,
+    "conversoes": 43,
+    "ctr": 0.07145,
+    "cpm": 153.64,
+    "cpc": 2.15,
+    "cpv": 0
+   },
+   "meta": {
+    "investimento": 0.0,
+    "impressoes": 0,
+    "cliques": 0,
+    "views": 0,
+    "conversoes": 0,
+    "ctr": 0,
+    "cpm": 0,
+    "cpc": 0,
+    "cpv": 0
+   },
+   "youtube": {
+    "investimento": 0.0,
+    "impressoes": 0,
+    "cliques": 0,
+    "views": 0,
+    "conversoes": 0,
+    "ctr": 0,
+    "cpm": 0,
+    "cpc": 0,
+    "cpv": 0
+   },
+   "total": {
+    "investimento": 1999.99,
+    "impressoes": 13017,
+    "cliques": 930,
+    "views": 0,
+    "conversoes": 43,
+    "ctr": 0.07145,
+    "cpm": 153.64,
+    "cpc": 2.15,
+    "cpv": 0
+   },
+   "estrategiasAtivas": 1
+  },
+  {
+   "mes": "2026-02",
+   "rotulo": "fev",
+   "nome": "fevereiro",
+   "parcial": false,
+   "google": {
+    "investimento": 2000.0,
+    "impressoes": 13352,
+    "cliques": 911,
+    "views": 0,
+    "conversoes": 11,
+    "ctr": 0.06823,
+    "cpm": 149.79,
+    "cpc": 2.2,
+    "cpv": 0
+   },
+   "meta": {
+    "investimento": 0.0,
+    "impressoes": 0,
+    "cliques": 0,
+    "views": 0,
+    "conversoes": 0,
+    "ctr": 0,
+    "cpm": 0,
+    "cpc": 0,
+    "cpv": 0
+   },
+   "youtube": {
+    "investimento": 0.0,
+    "impressoes": 0,
+    "cliques": 0,
+    "views": 0,
+    "conversoes": 0,
+    "ctr": 0,
+    "cpm": 0,
+    "cpc": 0,
+    "cpv": 0
+   },
+   "total": {
+    "investimento": 2000.0,
+    "impressoes": 13352,
+    "cliques": 911,
+    "views": 0,
+    "conversoes": 11,
+    "ctr": 0.06823,
+    "cpm": 149.79,
+    "cpc": 2.2,
+    "cpv": 0
+   },
+   "estrategiasAtivas": 1
+  },
+  {
+   "mes": "2026-03",
+   "rotulo": "mar",
+   "nome": "março",
+   "parcial": false,
+   "google": {
+    "investimento": 2000.0,
+    "impressoes": 15942,
+    "cliques": 1168,
+    "views": 0,
+    "conversoes": 35,
+    "ctr": 0.07327,
+    "cpm": 125.45,
+    "cpc": 1.71,
+    "cpv": 0
+   },
+   "meta": {
+    "investimento": 0.0,
+    "impressoes": 0,
+    "cliques": 0,
+    "views": 0,
+    "conversoes": 0,
+    "ctr": 0,
+    "cpm": 0,
+    "cpc": 0,
+    "cpv": 0
+   },
+   "youtube": {
+    "investimento": 0.0,
+    "impressoes": 0,
+    "cliques": 0,
+    "views": 0,
+    "conversoes": 0,
+    "ctr": 0,
+    "cpm": 0,
+    "cpc": 0,
+    "cpv": 0
+   },
+   "total": {
+    "investimento": 2000.0,
+    "impressoes": 15942,
+    "cliques": 1168,
+    "views": 0,
+    "conversoes": 35,
+    "ctr": 0.07327,
+    "cpm": 125.45,
+    "cpc": 1.71,
+    "cpv": 0
+   },
+   "estrategiasAtivas": 1
+  },
+  {
+   "mes": "2026-04",
+   "rotulo": "abr",
+   "nome": "abril",
+   "parcial": false,
+   "google": {
+    "investimento": 2000.0,
+    "impressoes": 14524,
+    "cliques": 1136,
+    "views": 0,
+    "conversoes": 47,
+    "ctr": 0.07822,
+    "cpm": 137.7,
+    "cpc": 1.76,
+    "cpv": 0
+   },
+   "meta": {
+    "investimento": 0.0,
+    "impressoes": 0,
+    "cliques": 0,
+    "views": 0,
+    "conversoes": 0,
+    "ctr": 0,
+    "cpm": 0,
+    "cpc": 0,
+    "cpv": 0
+   },
+   "youtube": {
+    "investimento": 0.0,
+    "impressoes": 0,
+    "cliques": 0,
+    "views": 0,
+    "conversoes": 0,
+    "ctr": 0,
+    "cpm": 0,
+    "cpc": 0,
+    "cpv": 0
+   },
+   "total": {
+    "investimento": 2000.0,
+    "impressoes": 14524,
+    "cliques": 1136,
+    "views": 0,
+    "conversoes": 47,
+    "ctr": 0.07822,
+    "cpm": 137.7,
+    "cpc": 1.76,
+    "cpv": 0
+   },
+   "estrategiasAtivas": 1
+  },
+  {
+   "mes": "2026-05",
+   "rotulo": "mai",
+   "nome": "maio",
+   "parcial": false,
+   "google": {
+    "investimento": 2000.0,
+    "impressoes": 13362,
+    "cliques": 1075,
+    "views": 0,
+    "conversoes": 47,
+    "ctr": 0.08045,
+    "cpm": 149.68,
+    "cpc": 1.86,
+    "cpv": 0
+   },
+   "meta": {
+    "investimento": 0.0,
+    "impressoes": 0,
+    "cliques": 0,
+    "views": 0,
+    "conversoes": 0,
+    "ctr": 0,
+    "cpm": 0,
+    "cpc": 0,
+    "cpv": 0
+   },
+   "youtube": {
+    "investimento": 0.0,
+    "impressoes": 0,
+    "cliques": 0,
+    "views": 0,
+    "conversoes": 0,
+    "ctr": 0,
+    "cpm": 0,
+    "cpc": 0,
+    "cpv": 0
+   },
+   "total": {
+    "investimento": 2000.0,
+    "impressoes": 13362,
+    "cliques": 1075,
+    "views": 0,
+    "conversoes": 47,
+    "ctr": 0.08045,
+    "cpm": 149.68,
+    "cpc": 1.86,
+    "cpv": 0
+   },
+   "estrategiasAtivas": 1
+  },
+  {
+   "mes": "2026-06",
+   "rotulo": "jun",
+   "nome": "junho",
+   "parcial": false,
+   "google": {
+    "investimento": 2000.0,
+    "impressoes": 14513,
+    "cliques": 1197,
+    "views": 0,
+    "conversoes": 48,
+    "ctr": 0.08248,
+    "cpm": 137.81,
+    "cpc": 1.67,
+    "cpv": 0
+   },
+   "meta": {
+    "investimento": 0.0,
+    "impressoes": 0,
+    "cliques": 0,
+    "views": 0,
+    "conversoes": 0,
+    "ctr": 0,
+    "cpm": 0,
+    "cpc": 0,
+    "cpv": 0
+   },
+   "youtube": {
+    "investimento": 0.0,
+    "impressoes": 0,
+    "cliques": 0,
+    "views": 0,
+    "conversoes": 0,
+    "ctr": 0,
+    "cpm": 0,
+    "cpc": 0,
+    "cpv": 0
+   },
+   "total": {
+    "investimento": 2000.0,
+    "impressoes": 14513,
+    "cliques": 1197,
+    "views": 0,
+    "conversoes": 48,
+    "ctr": 0.08248,
+    "cpm": 137.81,
+    "cpc": 1.67,
+    "cpv": 0
+   },
+   "estrategiasAtivas": 1
+  },
+  {
+   "mes": "2026-07",
+   "rotulo": "jul",
+   "nome": "julho",
+   "parcial": false,
+   "google": {
+    "investimento": 2000.0,
+    "impressoes": 15356,
+    "cliques": 1190,
+    "views": 0,
+    "conversoes": 48,
+    "ctr": 0.07749,
+    "cpm": 130.24,
+    "cpc": 1.68,
+    "cpv": 0
+   },
+   "meta": {
+    "investimento": 0.0,
+    "impressoes": 0,
+    "cliques": 0,
+    "views": 0,
+    "conversoes": 0,
+    "ctr": 0,
+    "cpm": 0,
+    "cpc": 0,
+    "cpv": 0
+   },
+   "youtube": {
+    "investimento": 0.0,
+    "impressoes": 0,
+    "cliques": 0,
+    "views": 0,
+    "conversoes": 0,
+    "ctr": 0,
+    "cpm": 0,
+    "cpc": 0,
+    "cpv": 0
+   },
+   "total": {
+    "investimento": 2000.0,
+    "impressoes": 15356,
+    "cliques": 1190,
+    "views": 0,
+    "conversoes": 48,
+    "ctr": 0.07749,
+    "cpm": 130.24,
+    "cpc": 1.68,
+    "cpv": 0
+   },
+   "estrategiasAtivas": 1
+  },
+  {
+   "mes": "2026-08",
+   "rotulo": "ago",
+   "nome": "agosto",
+   "parcial": false,
+   "google": {
+    "investimento": 2000.0,
+    "impressoes": 12369,
+    "cliques": 912,
+    "views": 0,
+    "conversoes": 32,
+    "ctr": 0.07373,
+    "cpm": 161.69,
+    "cpc": 2.19,
+    "cpv": 0
+   },
+   "meta": {
+    "investimento": 0.0,
+    "impressoes": 0,
+    "cliques": 0,
+    "views": 0,
+    "conversoes": 0,
+    "ctr": 0,
+    "cpm": 0,
+    "cpc": 0,
+    "cpv": 0
+   },
+   "youtube": {
+    "investimento": 0.0,
+    "impressoes": 0,
+    "cliques": 0,
+    "views": 0,
+    "conversoes": 0,
+    "ctr": 0,
+    "cpm": 0,
+    "cpc": 0,
+    "cpv": 0
+   },
+   "total": {
+    "investimento": 2000.0,
+    "impressoes": 12369,
+    "cliques": 912,
+    "views": 0,
+    "conversoes": 32,
+    "ctr": 0.07373,
+    "cpm": 161.69,
+    "cpc": 2.19,
+    "cpv": 0
+   },
+   "estrategiasAtivas": 1
+  },
+  {
+   "mes": "2026-09",
+   "rotulo": "set",
+   "nome": "setembro",
+   "parcial": false,
+   "google": {
+    "investimento": 2000.0,
+    "impressoes": 15347,
+    "cliques": 1013,
+    "views": 0,
+    "conversoes": 32,
+    "ctr": 0.06601,
+    "cpm": 130.32,
+    "cpc": 1.97,
+    "cpv": 0
+   },
+   "meta": {
+    "investimento": 0.0,
+    "impressoes": 0,
+    "cliques": 0,
+    "views": 0,
+    "conversoes": 0,
+    "ctr": 0,
+    "cpm": 0,
+    "cpc": 0,
+    "cpv": 0
+   },
+   "youtube": {
+    "investimento": 0.0,
+    "impressoes": 0,
+    "cliques": 0,
+    "views": 0,
+    "conversoes": 0,
+    "ctr": 0,
+    "cpm": 0,
+    "cpc": 0,
+    "cpv": 0
+   },
+   "total": {
+    "investimento": 2000.0,
+    "impressoes": 15347,
+    "cliques": 1013,
+    "views": 0,
+    "conversoes": 32,
+    "ctr": 0.06601,
+    "cpm": 130.32,
+    "cpc": 1.97,
+    "cpv": 0
+   },
+   "estrategiasAtivas": 1
+  },
+  {
+   "mes": "2026-10",
+   "rotulo": "out",
+   "nome": "outubro",
+   "parcial": false,
+   "google": {
+    "investimento": 2000.0,
+    "impressoes": 14400,
+    "cliques": 961,
+    "views": 0,
+    "conversoes": 14,
+    "ctr": 0.06674,
+    "cpm": 138.89,
+    "cpc": 2.08,
+    "cpv": 0
+   },
+   "meta": {
+    "investimento": 2204.6,
+    "impressoes": 523951,
+    "cliques": 1167,
+    "views": 4479,
+    "conversoes": 0,
+    "ctr": 0.00223,
+    "cpm": 4.21,
+    "cpc": 1.89,
+    "cpv": 0.492
+   },
+   "youtube": {
+    "investimento": 2168.51,
+    "impressoes": 94227,
+    "cliques": 13,
+    "views": 32818,
+    "conversoes": 0,
+    "ctr": 0.00014,
+    "cpm": 23.01,
+    "cpc": 166.81,
+    "cpv": 0.066
+   },
+   "total": {
+    "investimento": 6373.11,
+    "impressoes": 632578,
+    "cliques": 2141,
+    "views": 37297,
+    "conversoes": 14,
+    "ctr": 0.00338,
+    "cpm": 10.07,
+    "cpc": 2.98,
+    "cpv": 0.171
+   },
+   "estrategiasAtivas": 3
+  },
+  {
+   "mes": "2026-11",
+   "rotulo": "nov",
+   "nome": "novembro",
+   "parcial": true,
+   "google": {
+    "investimento": 788.87,
+    "impressoes": 3878,
+    "cliques": 341,
+    "views": 0,
+    "conversoes": 4,
+    "ctr": 0.08793,
+    "cpm": 203.42,
+    "cpc": 2.31,
+    "cpv": 0
+   },
+   "meta": {
+    "investimento": 795.4,
+    "impressoes": 204217,
+    "cliques": 476,
+    "views": 6314,
+    "conversoes": 0,
+    "ctr": 0.00233,
+    "cpm": 3.89,
+    "cpc": 1.67,
+    "cpv": 0.126
+   },
+   "youtube": {
+    "investimento": 1831.5,
+    "impressoes": 76004,
+    "cliques": 8,
+    "views": 22214,
+    "conversoes": 0,
+    "ctr": 0.00011,
+    "cpm": 24.1,
+    "cpc": 228.94,
+    "cpv": 0.082
+   },
+   "total": {
+    "investimento": 3415.77,
+    "impressoes": 284099,
+    "cliques": 825,
+    "views": 28528,
+    "conversoes": 4,
+    "ctr": 0.0029,
+    "cpm": 12.02,
+    "cpc": 4.14,
+    "cpv": 0.12
+   },
+   "estrategiasAtivas": 3
+  }
+ ],
+ "campanhas": [
+  {
+   "investimento": 20788.88,
+   "impressoes": 146060,
+   "cliques": 10834,
+   "views": 0,
+   "conversoes": 361,
+   "ctr": 0.07417,
+   "cpm": 142.33,
+   "cpc": 1.92,
+   "cpv": 0,
+   "campanha": "Institucional AON",
+   "inicio": "2026-01-01",
+   "fim": "2026-11-15",
+   "canais": [
+    "Google"
+   ],
+   "metaMensal": {
+    "investimento": 2000,
+    "cliques": 909
+   },
+   "metas": [
+    {
+     "investimento": 1999.99,
+     "impressoes": 13017,
+     "cliques": 930,
+     "views": 0,
+     "conversoes": 43,
+     "ctr": 0.07145,
+     "cpm": 153.64,
+     "cpc": 2.15,
+     "cpv": 0,
+     "mes": "2026-01",
+     "rotulo": "jan",
+     "nome": "janeiro",
+     "parcial": false,
+     "inicio": "2026-01-01",
+     "fim": "2026-01-31",
+     "metaInvestimento": 2000,
+     "metaCliques": 909,
+     "pctInvestimento": 1.0,
+     "pctCliques": 1.0231
+    },
+    {
+     "investimento": 2000.0,
+     "impressoes": 13352,
+     "cliques": 911,
+     "views": 0,
+     "conversoes": 11,
+     "ctr": 0.06823,
+     "cpm": 149.79,
+     "cpc": 2.2,
+     "cpv": 0,
+     "mes": "2026-02",
+     "rotulo": "fev",
+     "nome": "fevereiro",
+     "parcial": false,
+     "inicio": "2026-02-03",
+     "fim": "2026-02-28",
+     "metaInvestimento": 2000,
+     "metaCliques": 909,
+     "pctInvestimento": 1.0,
+     "pctCliques": 1.0022
+    },
+    {
+     "investimento": 2000.0,
+     "impressoes": 15942,
+     "cliques": 1168,
+     "views": 0,
+     "conversoes": 35,
+     "ctr": 0.07327,
+     "cpm": 125.45,
+     "cpc": 1.71,
+     "cpv": 0,
+     "mes": "2026-03",
+     "rotulo": "mar",
+     "nome": "março",
+     "parcial": false,
+     "inicio": "2026-03-02",
+     "fim": "2026-03-30",
+     "metaInvestimento": 2000,
+     "metaCliques": 909,
+     "pctInvestimento": 1.0,
+     "pctCliques": 1.2849
+    },
+    {
+     "investimento": 2000.0,
+     "impressoes": 14524,
+     "cliques": 1136,
+     "views": 0,
+     "conversoes": 47,
+     "ctr": 0.07822,
+     "cpm": 137.7,
+     "cpc": 1.76,
+     "cpv": 0,
+     "mes": "2026-04",
+     "rotulo": "abr",
+     "nome": "abril",
+     "parcial": false,
+     "inicio": "2026-04-02",
+     "fim": "2026-04-30",
+     "metaInvestimento": 2000,
+     "metaCliques": 909,
+     "pctInvestimento": 1.0,
+     "pctCliques": 1.2497
+    },
+    {
+     "investimento": 2000.0,
+     "impressoes": 13362,
+     "cliques": 1075,
+     "views": 0,
+     "conversoes": 47,
+     "ctr": 0.08045,
+     "cpm": 149.68,
+     "cpc": 1.86,
+     "cpv": 0,
+     "mes": "2026-05",
+     "rotulo": "mai",
+     "nome": "maio",
+     "parcial": false,
+     "inicio": "2026-05-04",
+     "fim": "2026-05-31",
+     "metaInvestimento": 2000,
+     "metaCliques": 909,
+     "pctInvestimento": 1.0,
+     "pctCliques": 1.1826
+    },
+    {
+     "investimento": 2000.0,
+     "impressoes": 14513,
+     "cliques": 1197,
+     "views": 0,
+     "conversoes": 48,
+     "ctr": 0.08248,
+     "cpm": 137.81,
+     "cpc": 1.67,
+     "cpv": 0,
+     "mes": "2026-06",
+     "rotulo": "jun",
+     "nome": "junho",
+     "parcial": false,
+     "inicio": "2026-06-01",
+     "fim": "2026-06-30",
+     "metaInvestimento": 2000,
+     "metaCliques": 909,
+     "pctInvestimento": 1.0,
+     "pctCliques": 1.3168
+    },
+    {
+     "investimento": 2000.0,
+     "impressoes": 15356,
+     "cliques": 1190,
+     "views": 0,
+     "conversoes": 48,
+     "ctr": 0.07749,
+     "cpm": 130.24,
+     "cpc": 1.68,
+     "cpv": 0,
+     "mes": "2026-07",
+     "rotulo": "jul",
+     "nome": "julho",
+     "parcial": false,
+     "inicio": "2026-07-03",
+     "fim": "2026-07-31",
+     "metaInvestimento": 2000,
+     "metaCliques": 909,
+     "pctInvestimento": 1.0,
+     "pctCliques": 1.3091
+    },
+    {
+     "investimento": 2000.0,
+     "impressoes": 12369,
+     "cliques": 912,
+     "views": 0,
+     "conversoes": 32,
+     "ctr": 0.07373,
+     "cpm": 161.69,
+     "cpc": 2.19,
+     "cpv": 0,
+     "mes": "2026-08",
+     "rotulo": "ago",
+     "nome": "agosto",
+     "parcial": false,
+     "inicio": "2026-08-03",
+     "fim": "2026-08-31",
+     "metaInvestimento": 2000,
+     "metaCliques": 909,
+     "pctInvestimento": 1.0,
+     "pctCliques": 1.0033
+    },
+    {
+     "investimento": 2000.0,
+     "impressoes": 15347,
+     "cliques": 1013,
+     "views": 0,
+     "conversoes": 32,
+     "ctr": 0.06601,
+     "cpm": 130.32,
+     "cpc": 1.97,
+     "cpv": 0,
+     "mes": "2026-09",
+     "rotulo": "set",
+     "nome": "setembro",
+     "parcial": false,
+     "inicio": "2026-09-01",
+     "fim": "2026-09-30",
+     "metaInvestimento": 2000,
+     "metaCliques": 909,
+     "pctInvestimento": 1.0,
+     "pctCliques": 1.1144
+    },
+    {
+     "investimento": 2000.0,
+     "impressoes": 14400,
+     "cliques": 961,
+     "views": 0,
+     "conversoes": 14,
+     "ctr": 0.06674,
+     "cpm": 138.89,
+     "cpc": 2.08,
+     "cpv": 0,
+     "mes": "2026-10",
+     "rotulo": "out",
+     "nome": "outubro",
+     "parcial": false,
+     "inicio": "2026-10-03",
+     "fim": "2026-10-31",
+     "metaInvestimento": 2000,
+     "metaCliques": 909,
+     "pctInvestimento": 1.0,
+     "pctCliques": 1.0572
+    },
+    {
+     "investimento": 788.87,
+     "impressoes": 3878,
+     "cliques": 341,
+     "views": 0,
+     "conversoes": 4,
+     "ctr": 0.08793,
+     "cpm": 203.42,
+     "cpc": 2.31,
+     "cpv": 0,
+     "mes": "2026-11",
+     "rotulo": "nov",
+     "nome": "novembro",
+     "parcial": true,
+     "inicio": "2026-11-06",
+     "fim": "2026-11-15",
+     "metaInvestimento": 2000,
+     "metaCliques": 909,
+     "pctInvestimento": 0.3944,
+     "pctCliques": 0.3751
+    }
+   ],
+   "mesesNaMeta": 10,
+   "mesesFechados": 10
+  },
+  {
+   "investimento": 7000.0,
+   "impressoes": 898399,
+   "cliques": 1664,
+   "views": 65825,
+   "conversoes": 0,
+   "ctr": 0.00185,
+   "cpm": 7.79,
+   "cpc": 4.21,
+   "cpv": 0.106,
+   "campanha": "Cremação",
+   "inicio": "2026-10-05",
+   "fim": "2026-11-13",
+   "contratado": {
+    "inicio": "2026-10-04",
+    "fim": "2026-11-13"
+   },
+   "canais": [
+    "Meta",
+    "YouTube"
+   ],
+   "metas": [
+    {
+     "investimento": 3000.0,
+     "impressoes": 728168,
+     "cliques": 1643,
+     "views": 10793,
+     "conversoes": 0,
+     "ctr": 0.00226,
+     "cpm": 4.12,
+     "cpc": 1.83,
+     "cpv": 0.278,
+     "plataforma": "Meta",
+     "inicio": "2026-10-05",
+     "fim": "2026-11-13",
+     "metaInvestimento": 3000,
+     "metrica": "impressoes",
+     "meta": 333333,
+     "pctInvestimento": 1.0,
+     "pctMeta": 2.1845
+    },
+    {
+     "investimento": 4000.0,
+     "impressoes": 170231,
+     "cliques": 21,
+     "views": 55032,
+     "conversoes": 0,
+     "ctr": 0.00012,
+     "cpm": 23.5,
+     "cpc": 190.48,
+     "cpv": 0.073,
+     "plataforma": "YouTube",
+     "inicio": "2026-10-16",
+     "fim": "2026-11-13",
+     "metaInvestimento": 4000,
+     "metrica": "views",
+     "meta": 33333,
+     "pctInvestimento": 1.0,
+     "pctMeta": 1.651
+    }
+   ]
+  }
+ ],
+ "grade": {
+  "meses": [
+   "2026-01",
+   "2026-02",
+   "2026-03",
+   "2026-04",
+   "2026-05",
+   "2026-06",
+   "2026-07",
+   "2026-08",
+   "2026-09",
+   "2026-10",
+   "2026-11"
+  ],
+  "linhas": [
+   {
+    "plataforma": "Google",
+    "estrategia": "Pesquisa",
+    "rotulo": "Pesquisa"
+   },
+   {
+    "plataforma": "Meta",
+    "estrategia": "Alcance",
+    "rotulo": "Meta Alcance"
+   },
+   {
+    "plataforma": "YouTube",
+    "estrategia": "Visualização",
+    "rotulo": "YouTube"
+   }
+  ],
+  "celulas": [
+   {
+    "investimento": 1999.99,
+    "impressoes": 13017,
+    "cliques": 930,
+    "views": 0,
+    "conversoes": 43,
+    "ctr": 0.07145,
+    "cpm": 153.64,
+    "cpc": 2.15,
+    "cpv": 0,
+    "plataforma": "Google",
+    "estrategia": "Pesquisa",
+    "mes": "2026-01",
+    "frentes": [
+     "Institucional AON"
+    ],
+    "campanhas": 1
+   },
+   {
+    "investimento": 2000.0,
+    "impressoes": 13352,
+    "cliques": 911,
+    "views": 0,
+    "conversoes": 11,
+    "ctr": 0.06823,
+    "cpm": 149.79,
+    "cpc": 2.2,
+    "cpv": 0,
+    "plataforma": "Google",
+    "estrategia": "Pesquisa",
+    "mes": "2026-02",
+    "frentes": [
+     "Institucional AON"
+    ],
+    "campanhas": 1
+   },
+   {
+    "investimento": 2000.0,
+    "impressoes": 15942,
+    "cliques": 1168,
+    "views": 0,
+    "conversoes": 35,
+    "ctr": 0.07327,
+    "cpm": 125.45,
+    "cpc": 1.71,
+    "cpv": 0,
+    "plataforma": "Google",
+    "estrategia": "Pesquisa",
+    "mes": "2026-03",
+    "frentes": [
+     "Institucional AON"
+    ],
+    "campanhas": 1
+   },
+   {
+    "investimento": 2000.0,
+    "impressoes": 14524,
+    "cliques": 1136,
+    "views": 0,
+    "conversoes": 47,
+    "ctr": 0.07822,
+    "cpm": 137.7,
+    "cpc": 1.76,
+    "cpv": 0,
+    "plataforma": "Google",
+    "estrategia": "Pesquisa",
+    "mes": "2026-04",
+    "frentes": [
+     "Institucional AON"
+    ],
+    "campanhas": 1
+   },
+   {
+    "investimento": 2000.0,
+    "impressoes": 13362,
+    "cliques": 1075,
+    "views": 0,
+    "conversoes": 47,
+    "ctr": 0.08045,
+    "cpm": 149.68,
+    "cpc": 1.86,
+    "cpv": 0,
+    "plataforma": "Google",
+    "estrategia": "Pesquisa",
+    "mes": "2026-05",
+    "frentes": [
+     "Institucional AON"
+    ],
+    "campanhas": 1
+   },
+   {
+    "investimento": 2000.0,
+    "impressoes": 14513,
+    "cliques": 1197,
+    "views": 0,
+    "conversoes": 48,
+    "ctr": 0.08248,
+    "cpm": 137.81,
+    "cpc": 1.67,
+    "cpv": 0,
+    "plataforma": "Google",
+    "estrategia": "Pesquisa",
+    "mes": "2026-06",
+    "frentes": [
+     "Institucional AON"
+    ],
+    "campanhas": 1
+   },
+   {
+    "investimento": 2000.0,
+    "impressoes": 15356,
+    "cliques": 1190,
+    "views": 0,
+    "conversoes": 48,
+    "ctr": 0.07749,
+    "cpm": 130.24,
+    "cpc": 1.68,
+    "cpv": 0,
+    "plataforma": "Google",
+    "estrategia": "Pesquisa",
+    "mes": "2026-07",
+    "frentes": [
+     "Institucional AON"
+    ],
+    "campanhas": 1
+   },
+   {
+    "investimento": 2000.0,
+    "impressoes": 12369,
+    "cliques": 912,
+    "views": 0,
+    "conversoes": 32,
+    "ctr": 0.07373,
+    "cpm": 161.69,
+    "cpc": 2.19,
+    "cpv": 0,
+    "plataforma": "Google",
+    "estrategia": "Pesquisa",
+    "mes": "2026-08",
+    "frentes": [
+     "Institucional AON"
+    ],
+    "campanhas": 1
+   },
+   {
+    "investimento": 2000.0,
+    "impressoes": 15347,
+    "cliques": 1013,
+    "views": 0,
+    "conversoes": 32,
+    "ctr": 0.06601,
+    "cpm": 130.32,
+    "cpc": 1.97,
+    "cpv": 0,
+    "plataforma": "Google",
+    "estrategia": "Pesquisa",
+    "mes": "2026-09",
+    "frentes": [
+     "Institucional AON"
+    ],
+    "campanhas": 1
+   },
+   {
+    "investimento": 2000.0,
+    "impressoes": 14400,
+    "cliques": 961,
+    "views": 0,
+    "conversoes": 14,
+    "ctr": 0.06674,
+    "cpm": 138.89,
+    "cpc": 2.08,
+    "cpv": 0,
+    "plataforma": "Google",
+    "estrategia": "Pesquisa",
+    "mes": "2026-10",
+    "frentes": [
+     "Institucional AON"
+    ],
+    "campanhas": 1
+   },
+   {
+    "investimento": 2204.6,
+    "impressoes": 523951,
+    "cliques": 1167,
+    "views": 4479,
+    "conversoes": 0,
+    "ctr": 0.00223,
+    "cpm": 4.21,
+    "cpc": 1.89,
+    "cpv": 0.492,
+    "plataforma": "Meta",
+    "estrategia": "Alcance",
+    "mes": "2026-10",
+    "frentes": [
+     "Cremação"
+    ],
+    "campanhas": 1
+   },
+   {
+    "investimento": 2168.51,
+    "impressoes": 94227,
+    "cliques": 13,
+    "views": 32818,
+    "conversoes": 0,
+    "ctr": 0.00014,
+    "cpm": 23.01,
+    "cpc": 166.81,
+    "cpv": 0.066,
+    "plataforma": "YouTube",
+    "estrategia": "Visualização",
+    "mes": "2026-10",
+    "frentes": [
+     "Cremação"
+    ],
+    "campanhas": 1
+   },
+   {
+    "investimento": 788.87,
+    "impressoes": 3878,
+    "cliques": 341,
+    "views": 0,
+    "conversoes": 4,
+    "ctr": 0.08793,
+    "cpm": 203.42,
+    "cpc": 2.31,
+    "cpv": 0,
+    "plataforma": "Google",
+    "estrategia": "Pesquisa",
+    "mes": "2026-11",
+    "frentes": [
+     "Institucional AON"
+    ],
+    "campanhas": 1
+   },
+   {
+    "investimento": 795.4,
+    "impressoes": 204217,
+    "cliques": 476,
+    "views": 6314,
+    "conversoes": 0,
+    "ctr": 0.00233,
+    "cpm": 3.89,
+    "cpc": 1.67,
+    "cpv": 0.126,
+    "plataforma": "Meta",
+    "estrategia": "Alcance",
+    "mes": "2026-11",
+    "frentes": [
+     "Cremação"
+    ],
+    "campanhas": 1
+   },
+   {
+    "investimento": 1831.5,
+    "impressoes": 76004,
+    "cliques": 8,
+    "views": 22214,
+    "conversoes": 0,
+    "ctr": 0.00011,
+    "cpm": 24.1,
+    "cpc": 228.94,
+    "cpv": 0.082,
+    "plataforma": "YouTube",
+    "estrategia": "Visualização",
+    "mes": "2026-11",
+    "frentes": [
+     "Cremação"
+    ],
+    "campanhas": 1
+   }
+  ]
+ },
+ "busca": {
+  "investimento": 20788.88,
+  "impressoes": 146060,
+  "cliques": 10834,
+  "views": 0,
+  "conversoes": 361,
+  "ctr": 0.07417,
+  "cpm": 142.33,
+  "cpc": 1.92,
+  "cpv": 0,
+  "anuncios": [
+   {
+    "investimento": 6204.09,
+    "impressoes": 47452,
+    "cliques": 3393,
+    "views": 0,
+    "conversoes": 111,
+    "ctr": 0.0715,
+    "cpm": 130.74,
+    "cpc": 1.83,
+    "cpv": 0,
+    "titulos": [
+     "Tradição em Salvador",
+     "Memória e Respeito",
+     "Cemitério Campo Santo"
+    ],
+    "frente": "Institucional AON"
+   },
+   {
+    "investimento": 3572.63,
+    "impressoes": 21435,
+    "cliques": 1991,
+    "views": 0,
+    "conversoes": 114,
+    "ctr": 0.09289,
+    "cpm": 166.67,
+    "cpc": 1.79,
+    "cpv": 0,
+    "titulos": [
+     "Atendimento Campo Santo",
+     "Fale com o Campo Santo",
+     "Whatsapp Campo Santo"
+    ],
+    "frente": "Institucional AON"
+   },
+   {
+    "investimento": 1113.96,
+    "impressoes": 9326,
+    "cliques": 641,
+    "views": 0,
+    "conversoes": 6,
+    "ctr": 0.06873,
+    "cpm": 119.45,
+    "cpc": 1.74,
+    "cpv": 0,
+    "titulos": [
+     "Título de Cremação",
+     "Cremação sem burocracia",
+     "Planejar também é cuidar"
+    ],
+    "frente": "Institucional AON"
+   },
+   {
+    "investimento": 1380.08,
+    "impressoes": 8668,
+    "cliques": 625,
+    "views": 0,
+    "conversoes": 19,
+    "ctr": 0.0721,
+    "cpm": 159.22,
+    "cpc": 2.21,
+    "cpv": 0,
+    "titulos": [
+     "Projeto Social Campo Santo",
+     "Trabalho Social Campo Santo",
+     "Ações Cemitério Campo Santo"
+    ],
+    "frente": "Institucional AON"
+   },
+   {
+    "investimento": 1234.1,
+    "impressoes": 7811,
+    "cliques": 594,
+    "views": 0,
+    "conversoes": 32,
+    "ctr": 0.07605,
+    "cpm": 158.0,
+    "cpc": 2.08,
+    "cpv": 0,
+    "titulos": [
+     "Cemitério Campo Santo",
+     "Tradição e Modernidade",
+     "Campo Santo",
+     "Salvador"
+    ],
+    "frente": "Institucional AON"
+   },
+   {
+    "investimento": 1051.37,
+    "impressoes": 6775,
+    "cliques": 440,
+    "views": 0,
+    "conversoes": 13,
+    "ctr": 0.06494,
+    "cpm": 155.18,
+    "cpc": 2.39,
+    "cpv": 0,
+    "titulos": [
+     "Dúvidas Campo Santo",
+     "Informações Cemitério",
+     "Atendimento Cemitério",
+     "Fale Conosco no WhatsApp"
+    ],
+    "frente": "Institucional AON"
+   }
+  ],
+  "palavrasChave": {
+   "porFrente": {
+    "Institucional AON": [
+     {
+      "termo": "cemitério campo santo",
+      "impressoes": 11283,
+      "cliques": 1278,
+      "conversoes": 72.5,
+      "ctr": 0.11327
+     },
+     {
+      "termo": "jazigo",
+      "impressoes": 17434,
+      "cliques": 1275,
+      "conversoes": 35.0,
+      "ctr": 0.07313
+     },
+     {
+      "termo": "cremação",
+      "impressoes": 11253,
+      "cliques": 921,
+      "conversoes": 21.0,
+      "ctr": 0.08184
+     },
+     {
+      "termo": "campo santo",
+      "impressoes": 6816,
+      "cliques": 897,
+      "conversoes": 33.7,
+      "ctr": 0.1316
+     },
+     {
+      "termo": "plano funerário",
+      "impressoes": 15481,
+      "cliques": 849,
+      "conversoes": 19.5,
+      "ctr": 0.05484
+     },
+     {
+      "termo": "serviço de cremação",
+      "impressoes": 12130,
+      "cliques": 813,
+      "conversoes": 0.0,
+      "ctr": 0.06702
+     },
+     {
+      "termo": "cemiterio campo santo",
+      "impressoes": 6006,
+      "cliques": 606,
+      "conversoes": 30.0,
+      "ctr": 0.1009
+     },
+     {
+      "termo": "campo santo familiar",
+      "impressoes": 4243,
+      "cliques": 482,
+      "conversoes": 29.0,
+      "ctr": 0.1136
+     },
+     {
+      "termo": "plano funeral",
+      "impressoes": 9388,
+      "cliques": 465,
+      "conversoes": 13.0,
+      "ctr": 0.04953
+     },
+     {
+      "termo": "cemitério",
+      "impressoes": 10593,
+      "cliques": 448,
+      "conversoes": 7.5,
+      "ctr": 0.04229
+     },
+     {
+      "termo": "campo santo cemitério",
+      "impressoes": 3477,
+      "cliques": 448,
+      "conversoes": 35.0,
+      "ctr": 0.12885
+     },
+     {
+      "termo": "campo santo contato",
+      "impressoes": 1966,
+      "cliques": 185,
+      "conversoes": 5.0,
+      "ctr": 0.0941
+     },
+     {
+      "termo": "quanto custa cremação",
+      "impressoes": 1483,
+      "cliques": 164,
+      "conversoes": 0.0,
+      "ctr": 0.11059
+     },
+     {
+      "termo": "cemitério memorial",
+      "impressoes": 2846,
+      "cliques": 154,
+      "conversoes": 3.0,
+      "ctr": 0.05411
+     },
+     {
+      "termo": "serviço funerario",
+      "impressoes": 2767,
+      "cliques": 146,
+      "conversoes": 2.0,
+      "ctr": 0.05276
+     },
+     {
+      "termo": "cemiterio",
+      "impressoes": 3735,
+      "cliques": 133,
+      "conversoes": 3.0,
+      "ctr": 0.03561
+     },
+     {
+      "termo": "velório online",
+      "impressoes": 1107,
+      "cliques": 118,
+      "conversoes": 1.5,
+      "ctr": 0.10659
+     },
+     {
+      "termo": "plano campo santo familiar",
+      "impressoes": 641,
+      "cliques": 102,
+      "conversoes": 3.0,
+      "ctr": 0.15913
+     },
+     {
+      "termo": "serviços funerários",
+      "impressoes": 3345,
+      "cliques": 86,
+      "conversoes": 0.0,
+      "ctr": 0.02571
+     },
+     {
+      "termo": "cemitério em salvador",
+      "impressoes": 2080,
+      "cliques": 83,
+      "conversoes": 2.0,
+      "ctr": 0.0399
+     },
+     {
+      "termo": "cremação em salvador",
+      "impressoes": 552,
+      "cliques": 83,
+      "conversoes": 3.0,
+      "ctr": 0.15036
+     },
+     {
+      "termo": "como funciona a cremação",
+      "impressoes": 1506,
+      "cliques": 79,
+      "conversoes": 0.0,
+      "ctr": 0.05246
+     },
+     {
+      "termo": "cemitério campo santo salvador",
+      "impressoes": 920,
+      "cliques": 78,
+      "conversoes": 0.0,
+      "ctr": 0.08478
+     },
+     {
+      "termo": "campo santo salvador",
+      "impressoes": 676,
+      "cliques": 75,
+      "conversoes": 3.0,
+      "ctr": 0.11095
+     },
+     {
+      "termo": "funerária em salvador",
+      "impressoes": 1214,
+      "cliques": 72,
+      "conversoes": 3.0,
+      "ctr": 0.05931
+     },
+     {
+      "termo": "campo santo cremação",
+      "impressoes": 686,
+      "cliques": 57,
+      "conversoes": 4.3,
+      "ctr": 0.08309
+     },
+     {
+      "termo": "cremação valor",
+      "impressoes": 681,
+      "cliques": 49,
+      "conversoes": 6.0,
+      "ctr": 0.07195
+     },
+     {
+      "termo": "como assistir velório online",
+      "impressoes": 693,
+      "cliques": 40,
+      "conversoes": 0.0,
+      "ctr": 0.05772
+     },
+     {
+      "termo": "planejamento funerário",
+      "impressoes": 855,
+      "cliques": 36,
+      "conversoes": 0.0,
+      "ctr": 0.04211
+     },
+     {
+      "termo": "telefone cemitério campo santo",
+      "impressoes": 423,
+      "cliques": 34,
+      "conversoes": 2.0,
+      "ctr": 0.08038
+     },
+     {
+      "termo": "jardim da saudade",
+      "impressoes": 1045,
+      "cliques": 31,
+      "conversoes": 0.0,
+      "ctr": 0.02967
+     },
+     {
+      "termo": "número do cemitério",
+      "impressoes": 376,
+      "cliques": 28,
+      "conversoes": 3.0,
+      "ctr": 0.07447
+     },
+     {
+      "termo": "plano funerário whatsapp",
+      "impressoes": 343,
+      "cliques": 26,
+      "conversoes": 0.0,
+      "ctr": 0.0758
+     },
+     {
+      "termo": "telefone do cemitério campo santo",
+      "impressoes": 233,
+      "cliques": 23,
+      "conversoes": 7.0,
+      "ctr": 0.09871
+     },
+     {
+      "termo": "planos funerarios",
+      "impressoes": 360,
+      "cliques": 22,
+      "conversoes": 0.0,
+      "ctr": 0.06111
+     },
+     {
+      "termo": "crematório particular",
+      "impressoes": 637,
+      "cliques": 21,
+      "conversoes": 0.0,
+      "ctr": 0.03297
+     },
+     {
+      "termo": "preço funeral",
+      "impressoes": 135,
+      "cliques": 21,
+      "conversoes": 0.0,
+      "ctr": 0.15556
+     },
+     {
+      "termo": "cemitério campo santo telefone",
+      "impressoes": 110,
+      "cliques": 16,
+      "conversoes": 5.0,
+      "ctr": 0.14545
+     },
+     {
+      "termo": "cemitério campo santo cremação",
+      "impressoes": 70,
+      "cliques": 16,
+      "conversoes": 0.0,
+      "ctr": 0.22857
+     },
+     {
+      "termo": "plano de cremação",
+      "impressoes": 134,
+      "cliques": 14,
+      "conversoes": 0.0,
+      "ctr": 0.10448
+     },
+     {
+      "termo": "cemitérios em salvador",
+      "impressoes": 415,
+      "cliques": 13,
+      "conversoes": 0.0,
+      "ctr": 0.03133
+     },
+     {
+      "termo": "cemiterio e crematorio",
+      "impressoes": 228,
+      "cliques": 13,
+      "conversoes": 0.0,
+      "ctr": 0.05702
+     },
+     {
+      "termo": "cemitério campo santo endereço",
+      "impressoes": 225,
+      "cliques": 13,
+      "conversoes": 0.0,
+      "ctr": 0.05778
+     },
+     {
+      "termo": "campos santo",
+      "impressoes": 157,
+      "cliques": 13,
+      "conversoes": 2.0,
+      "ctr": 0.0828
+     },
+     {
+      "termo": "preço da cremação",
+      "impressoes": 50,
+      "cliques": 13,
+      "conversoes": 0.0,
+      "ctr": 0.26
+     },
+     {
+      "termo": "cemitério perto de mim",
+      "impressoes": 685,
+      "cliques": 12,
+      "conversoes": 0.0,
+      "ctr": 0.01752
+     },
+     {
+      "termo": "cemitério whatsapp",
+      "impressoes": 151,
+      "cliques": 11,
+      "conversoes": 0.0,
+      "ctr": 0.07285
+     },
+     {
+      "termo": "preço de cremação",
+      "impressoes": 84,
+      "cliques": 11,
+      "conversoes": 0.0,
+      "ctr": 0.13095
+     },
+     {
+      "termo": "preço cremação salvador",
+      "impressoes": 96,
+      "cliques": 10,
+      "conversoes": 0.0,
+      "ctr": 0.10417
+     },
+     {
+      "termo": "campo santo telefone",
+      "impressoes": 91,
+      "cliques": 10,
+      "conversoes": 2.0,
+      "ctr": 0.10989
+     },
+     {
+      "termo": "cremação bahia",
+      "impressoes": 113,
+      "cliques": 9,
+      "conversoes": 0.0,
+      "ctr": 0.07965
+     },
+     {
+      "termo": "memorial cemitério",
+      "impressoes": 85,
+      "cliques": 9,
+      "conversoes": 0.0,
+      "ctr": 0.10588
+     },
+     {
+      "termo": "assistência funerária",
+      "impressoes": 215,
+      "cliques": 8,
+      "conversoes": 0.0,
+      "ctr": 0.03721
+     },
+     {
+      "termo": "cemitério e crematório",
+      "impressoes": 173,
+      "cliques": 8,
+      "conversoes": 0.0,
+      "ctr": 0.04624
+     },
+     {
+      "termo": "cemitério crematório",
+      "impressoes": 170,
+      "cliques": 8,
+      "conversoes": 0.0,
+      "ctr": 0.04706
+     },
+     {
+      "termo": "cremação de corpo",
+      "impressoes": 129,
+      "cliques": 8,
+      "conversoes": 0.0,
+      "ctr": 0.06202
+     },
+     {
+      "termo": "cemiterio do campo santo",
+      "impressoes": 100,
+      "cliques": 8,
+      "conversoes": 0.0,
+      "ctr": 0.08
+     },
+     {
+      "termo": "cemitério particular salvador",
+      "impressoes": 46,
+      "cliques": 7,
+      "conversoes": 0.0,
+      "ctr": 0.15217
+     },
+     {
+      "termo": "cremação salvador",
+      "impressoes": 49,
+      "cliques": 6,
+      "conversoes": 0.0,
+      "ctr": 0.12245
+     },
+     {
+      "termo": "sepultamento",
+      "impressoes": 393,
+      "cliques": 5,
+      "conversoes": 0.0,
+      "ctr": 0.01272
+     },
+     {
+      "termo": "plano funerário salvador",
+      "impressoes": 66,
+      "cliques": 5,
+      "conversoes": 0.0,
+      "ctr": 0.07576
+     },
+     {
+      "termo": "plano funerário campo santo",
+      "impressoes": 55,
+      "cliques": 5,
+      "conversoes": 0.0,
+      "ctr": 0.09091
+     },
+     {
+      "termo": "valor de cremação",
+      "impressoes": 53,
+      "cliques": 5,
+      "conversoes": 0.0,
+      "ctr": 0.09434
+     },
+     {
+      "termo": "contato campo santo",
+      "impressoes": 51,
+      "cliques": 5,
+      "conversoes": 0.0,
+      "ctr": 0.09804
+     },
+     {
+      "termo": "onde fica o cemitério campo santo em salvador",
+      "impressoes": 25,
+      "cliques": 5,
+      "conversoes": 0.0,
+      "ctr": 0.2
+     },
+     {
+      "termo": "cremação humana",
+      "impressoes": 156,
+      "cliques": 4,
+      "conversoes": 0.0,
+      "ctr": 0.02564
+     },
+     {
+      "termo": "memorial",
+      "impressoes": 83,
+      "cliques": 4,
+      "conversoes": 0.0,
+      "ctr": 0.04819
+     },
+     {
+      "termo": "urna funerária",
+      "impressoes": 59,
+      "cliques": 4,
+      "conversoes": 3.0,
+      "ctr": 0.0678
+     },
+     {
+      "termo": "sepultamento salvador",
+      "impressoes": 58,
+      "cliques": 4,
+      "conversoes": 0.0,
+      "ctr": 0.06897
+     },
+     {
+      "termo": "campo santo obituario",
+      "impressoes": 57,
+      "cliques": 4,
+      "conversoes": 0.0,
+      "ctr": 0.07018
+     },
+     {
+      "termo": "funeral salvador",
+      "impressoes": 51,
+      "cliques": 4,
+      "conversoes": 0.0,
+      "ctr": 0.07843
+     },
+     {
+      "termo": "memorial campo santo",
+      "impressoes": 15,
+      "cliques": 4,
+      "conversoes": 0.0,
+      "ctr": 0.26667
+     },
+     {
+      "termo": "cremação particular",
+      "impressoes": 13,
+      "cliques": 4,
+      "conversoes": 0.0,
+      "ctr": 0.30769
+     },
+     {
+      "termo": "cemitério cemitério",
+      "impressoes": 149,
+      "cliques": 3,
+      "conversoes": 0.0,
+      "ctr": 0.02013
+     },
+     {
+      "termo": "jazigo preço",
+      "impressoes": 116,
+      "cliques": 3,
+      "conversoes": 0.0,
+      "ctr": 0.02586
+     },
+     {
+      "termo": "convênio funerário",
+      "impressoes": 83,
+      "cliques": 3,
+      "conversoes": 0.0,
+      "ctr": 0.03614
+     },
+     {
+      "termo": "cemiterio jazigo",
+      "impressoes": 45,
+      "cliques": 3,
+      "conversoes": 0.0,
+      "ctr": 0.06667
+     },
+     {
+      "termo": "plano de sepultamento",
+      "impressoes": 33,
+      "cliques": 3,
+      "conversoes": 0.0,
+      "ctr": 0.09091
+     },
+     {
+      "termo": "plano funerário com cremação",
+      "impressoes": 32,
+      "cliques": 3,
+      "conversoes": 0.0,
+      "ctr": 0.09375
+     },
+     {
+      "termo": "velório virtual",
+      "impressoes": 25,
+      "cliques": 3,
+      "conversoes": 0.0,
+      "ctr": 0.12
+     },
+     {
+      "termo": "campo santo whatsapp",
+      "impressoes": 12,
+      "cliques": 3,
+      "conversoes": 0.0,
+      "ctr": 0.25
+     },
+     {
+      "termo": "velório particular",
+      "impressoes": 10,
+      "cliques": 3,
+      "conversoes": 0.0,
+      "ctr": 0.3
+     },
+     {
+      "termo": "gaveta campo santo",
+      "impressoes": 3,
+      "cliques": 3,
+      "conversoes": 0.0,
+      "ctr": 1.0
+     },
+     {
+      "termo": "campo santo endereço",
+      "impressoes": 80,
+      "cliques": 2,
+      "conversoes": 0.0,
+      "ctr": 0.025
+     },
+     {
+      "termo": "campo santo federação",
+      "impressoes": 74,
+      "cliques": 2,
+      "conversoes": 0.0,
+      "ctr": 0.02703
+     },
+     {
+      "termo": "serviços funerarios",
+      "impressoes": 71,
+      "cliques": 2,
+      "conversoes": 0.0,
+      "ctr": 0.02817
+     },
+     {
+      "termo": "cemiterio crematorio",
+      "impressoes": 39,
+      "cliques": 2,
+      "conversoes": 0.0,
+      "ctr": 0.05128
+     },
+     {
+      "termo": "quanto custa cremação salvador",
+      "impressoes": 31,
+      "cliques": 2,
+      "conversoes": 0.0,
+      "ctr": 0.06452
+     },
+     {
+      "termo": "crematório campo santo",
+      "impressoes": 26,
+      "cliques": 2,
+      "conversoes": 0.0,
+      "ctr": 0.07692
+     },
+     {
+      "termo": "cemitério ecológico",
+      "impressoes": 24,
+      "cliques": 2,
+      "conversoes": 0.0,
+      "ctr": 0.08333
+     },
+     {
+      "termo": "valor da cremação",
+      "impressoes": 24,
+      "cliques": 2,
+      "conversoes": 0.0,
+      "ctr": 0.08333
+     },
+     {
+      "termo": "cemitério campo santo contato",
+      "impressoes": 11,
+      "cliques": 2,
+      "conversoes": 4.0,
+      "ctr": 0.18182
+     },
+     {
+      "termo": "campo santo familiar boleto",
+      "impressoes": 10,
+      "cliques": 2,
+      "conversoes": 0.0,
+      "ctr": 0.2
+     },
+     {
+      "termo": "velório campo santo",
+      "impressoes": 10,
+      "cliques": 2,
+      "conversoes": 0.0,
+      "ctr": 0.2
+     },
+     {
+      "termo": "valor de cremação em salvador",
+      "impressoes": 7,
+      "cliques": 2,
+      "conversoes": 0.0,
+      "ctr": 0.28571
+     },
+     {
+      "termo": "assistir velório online",
+      "impressoes": 6,
+      "cliques": 2,
+      "conversoes": 0.0,
+      "ctr": 0.33333
+     },
+     {
+      "termo": "campo santo sepultamento",
+      "impressoes": 4,
+      "cliques": 2,
+      "conversoes": 0.0,
+      "ctr": 0.5
+     },
+     {
+      "termo": "serviço funerário cremação",
+      "impressoes": 3,
+      "cliques": 2,
+      "conversoes": 0.0,
+      "ctr": 0.66667
+     },
+     {
+      "termo": "jazigo em cemitério",
+      "impressoes": 90,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.01111
+     },
+     {
+      "termo": "plano funeral jardim da saudade",
+      "impressoes": 64,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.01562
+     },
+     {
+      "termo": "como contratar serviço funerário",
+      "impressoes": 37,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.02703
+     },
+     {
+      "termo": "serviço funerário",
+      "impressoes": 33,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.0303
+     },
+     {
+      "termo": "cremação com cerimônia",
+      "impressoes": 18,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.05556
+     },
+     {
+      "termo": "plano funerária",
+      "impressoes": 17,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.05882
+     },
+     {
+      "termo": "cemiterio municipal",
+      "impressoes": 16,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.0625
+     },
+     {
+      "termo": "cemitério campo santo onde fica",
+      "impressoes": 14,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.07143
+     },
+     {
+      "termo": "funeral preço",
+      "impressoes": 12,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.08333
+     },
+     {
+      "termo": "cremação preço",
+      "impressoes": 10,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.1
+     },
+     {
+      "termo": "campo santo cemitério salvador",
+      "impressoes": 9,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.11111
+     },
+     {
+      "termo": "qual o valor para cremar um corpo",
+      "impressoes": 8,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.125
+     },
+     {
+      "termo": "cinzas de cremação",
+      "impressoes": 7,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.14286
+     },
+     {
+      "termo": "campos santos cemitério",
+      "impressoes": 6,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.16667
+     },
+     {
+      "termo": "preço cremação",
+      "impressoes": 6,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.16667
+     },
+     {
+      "termo": "cremação de restos mortais",
+      "impressoes": 5,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.2
+     },
+     {
+      "termo": "crematório bahia",
+      "impressoes": 4,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.25
+     },
+     {
+      "termo": "onde cremar em salvador",
+      "impressoes": 4,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.25
+     },
+     {
+      "termo": "santa casa de misericórdia da bahia",
+      "impressoes": 4,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.25
+     },
+     {
+      "termo": "crematório em salvador",
+      "impressoes": 3,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.33333
+     },
+     {
+      "termo": "assistir funeral online",
+      "impressoes": 2,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.5
+     },
+     {
+      "termo": "campo santo cemitério contato",
+      "impressoes": 2,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 0.5
+     },
+     {
+      "termo": "funeral online",
+      "impressoes": 1,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 1.0
+     },
+     {
+      "termo": "número da funerária",
+      "impressoes": 1,
+      "cliques": 1,
+      "conversoes": 0.0,
+      "ctr": 1.0
+     }
+    ]
+   },
+   "totais": {
+    "Institucional AON": {
+     "termos": 122,
+     "cliques": 10810,
+     "impressoes": 145421,
+     "conversoes": 363,
+     "cliquesPesquisa": 10834,
+     "completa": true
+    }
+   }
+  }
+ },
+ "publico": {
+  "meta": [
+   {
+    "idade": "18-24",
+    "genero": "female",
+    "impressoes": 37543.0,
+    "cliques": 41.0,
+    "investimento": 221.59
+   },
+   {
+    "idade": "18-24",
+    "genero": "male",
+    "impressoes": 40272.0,
+    "cliques": 46.0,
+    "investimento": 232.19
+   },
+   {
+    "idade": "18-24",
+    "genero": "unknown",
+    "impressoes": 275.0,
+    "cliques": 0.0,
+    "investimento": 1.85
+   },
+   {
+    "idade": "25-34",
+    "genero": "female",
+    "impressoes": 26437.0,
+    "cliques": 31.0,
+    "investimento": 141.6
+   },
+   {
+    "idade": "25-34",
+    "genero": "male",
+    "impressoes": 38550.0,
+    "cliques": 42.0,
+    "investimento": 213.94
+   },
+   {
+    "idade": "25-34",
+    "genero": "unknown",
+    "impressoes": 220688.0,
+    "cliques": 642.0,
+    "investimento": 641.85
+   },
+   {
+    "idade": "35-44",
+    "genero": "female",
+    "impressoes": 18868.0,
+    "cliques": 21.0,
+    "investimento": 100.25
+   },
+   {
+    "idade": "35-44",
+    "genero": "male",
+    "impressoes": 33594.0,
+    "cliques": 52.0,
+    "investimento": 179.0
+   },
+   {
+    "idade": "35-44",
+    "genero": "unknown",
+    "impressoes": 73967.0,
+    "cliques": 216.0,
+    "investimento": 215.85
+   },
+   {
+    "idade": "45-54",
+    "genero": "female",
+    "impressoes": 22955.0,
+    "cliques": 46.0,
+    "investimento": 114.25
+   },
+   {
+    "idade": "45-54",
+    "genero": "male",
+    "impressoes": 39614.0,
+    "cliques": 78.0,
+    "investimento": 202.05
+   },
+   {
+    "idade": "45-54",
+    "genero": "unknown",
+    "impressoes": 42485.0,
+    "cliques": 126.0,
+    "investimento": 124.55
+   },
+   {
+    "idade": "55-64",
+    "genero": "female",
+    "impressoes": 27484.0,
+    "cliques": 58.0,
+    "investimento": 138.9
+   },
+   {
+    "idade": "55-64",
+    "genero": "male",
+    "impressoes": 35803.0,
+    "cliques": 66.0,
+    "investimento": 179.7
+   },
+   {
+    "idade": "55-64",
+    "genero": "unknown",
+    "impressoes": 10065.0,
+    "cliques": 35.0,
+    "investimento": 30.5
+   },
+   {
+    "idade": "65+",
+    "genero": "female",
+    "impressoes": 23376.0,
+    "cliques": 48.0,
+    "investimento": 110.1
+   },
+   {
+    "idade": "65+",
+    "genero": "male",
+    "impressoes": 21330.0,
+    "cliques": 35.0,
+    "investimento": 101.8
+   },
+   {
+    "idade": "65+",
+    "genero": "unknown",
+    "impressoes": 9277.0,
+    "cliques": 30.0,
+    "investimento": 27.65
+   },
+   {
+    "idade": "desconhecida",
+    "genero": "female",
+    "impressoes": 1.0,
+    "cliques": 0.0,
+    "investimento": 0.0
+   },
+   {
+    "idade": "desconhecida",
+    "genero": "male",
+    "impressoes": 3.0,
+    "cliques": 0.0,
+    "investimento": 0.05
+   },
+   {
+    "idade": "desconhecida",
+    "genero": "unknown",
+    "impressoes": 5581.0,
+    "cliques": 30.0,
+    "investimento": 22.35
+   }
+  ]
+ },
+ "video": {
+  "meta": {
+   "views": 10793,
+   "reproducoes": 181479,
+   "thruplays": 1322
+  },
+  "youtube": {
+   "impressoes": 170231,
+   "views": 55032,
+   "investimento": 4000.0,
+   "p25": 87740,
+   "p50": 74125,
+   "p75": 66538,
+   "p100": 60970
+  },
+  "notaYoutube": "Quartis do YouTube = taxa diária × impressões (estimativa da contagem)."
+ },
+ "criativos": [
+  {
+   "investimento": 2100.3,
+   "impressoes": 528771,
+   "cliques": 1119,
+   "views": 0,
+   "conversoes": 0,
+   "ctr": 0.00212,
+   "cpm": 3.97,
+   "cpc": 1.88,
+   "cpv": 0,
+   "id": "meta-01",
+   "nome": "Cemiterio Campo Santo",
+   "nomeOrigem": "[DARKPOST] Cemiterio Campo Santo",
+   "plataforma": "Meta",
+   "frente": "Cremação",
+   "estrategia": "Alcance",
+   "formato": "imagem",
+   "imagemOrigem": "https://scontent-fra3-1.xx.fbcdn.net/v/t45.1600-4/829136492_28112466775101741_5709344670116784792_n.png?_nc_cat=108&_nc_map=urlgen_bucketless&ccb=1-7&_nc_eui2=AeG6t8rqdwualB6Gtquh-twUR17E0z31jV1HXsTTPfWNXSLQo_0vwxn5M1DKBetgaudIIFuW1CApwz4cv7BP9pNm&_nc_ohc=z6JXkCW0TesQ7kNvwETI6aF&_nc_oc=AdpNEdyWtOHktIvPGJEFvsu2SueZbXk8stQMiqwdRxs7AdcPhVtmDTXDNwlzas4PL28&_nc_zt=1&_nc_ht=scontent-fra3-1.xx&edm=AJfPMC4EAAAA&_nc_gid=L2RrBnxFBneyzg0BENYe9w&_nc_tpa=Q5bMBQLTvFnwkiY6FpQoaeFQO-m3N4b-3q8FEK0akbIkNW_xVHmiix-20_Fa5DN9SdahdlSiETzgMqrZ0A&stp=dst-emg0_fr_q75_tt6&ur=f0a831&_nc_sid=64c8fc&oh=00_AQQoGVzDoWpnZEkV1qldzm99kpQwyUgt2_i8aDVv-TXCbA&oe=6B022811",
+   "link": "https://www.instagram.com/p/DeHYsYDAaJi/",
+   "imagem": "/criativos/meta-01.jpg"
+  },
+  {
+   "investimento": 899.7,
+   "impressoes": 199397,
+   "cliques": 524,
+   "views": 10793,
+   "conversoes": 0,
+   "ctr": 0.00263,
+   "cpm": 4.51,
+   "cpc": 1.72,
+   "cpv": 0.083,
+   "id": "meta-02",
+   "nome": "Vídeo",
+   "nomeOrigem": "[DARKPOST]  [VIDEO] -",
+   "plataforma": "Meta",
+   "frente": "Cremação",
+   "estrategia": "Alcance",
+   "formato": "video",
+   "imagemOrigem": "https://scontent-fra5-1.xx.fbcdn.net/v/t15.5256-10/852587351_39276469088666640_7852507039250353664_n.jpg?_nc_cat=111&_nc_map=urlgen_bucketless&ccb=1-7&_nc_eui2=AeE1_7yllclwOUBfeiUauRPObKEgOVYHFyZsoSA5VgcXJhRlyNWjVrxfn8SX2kt4pBNh5y5Q8e-qa0222aCNsUp0&_nc_ohc=vYWffeY_PHMQ7kNvwHD64w5&_nc_oc=AdrEtTAnNZ0Pt-rvWta1TJshbxjTEsMr0dPRQqUhAMxwfLLmHchWH_cygvd0ukSr2C0&_nc_zt=23&_nc_ht=scontent-fra5-1.xx&edm=AEuWsiQEAAAA&_nc_gid=Ko0Gkt_ycf9wn61XiiR9rA&_nc_tpa=Q5bMBQKHrjRG7jblnHP5PRpOVV4NF6cKneg52Szd9NgtF040IPW723EtXnB7ijoF6M9AJz8EqNu3s3C6Sg&stp=c0.5000x0.5000f_dst-emg0_p1024x1024_q75_tt6&ur=5fad0e&_nc_sid=58080a&oh=00_AQROSroPpbhC5-KxsVVLe_izz9eSYFY8ZNBtNhGuH8tj4w&oe=6B022580",
+   "link": "https://www.instagram.com/p/DemagG7gaZU/",
+   "imagem": "/criativos/meta-02.jpg"
+  },
+  {
+   "investimento": 4000.0,
+   "impressoes": 170231,
+   "cliques": 21,
+   "views": 55032,
+   "conversoes": 0,
+   "ctr": 0.00012,
+   "cpm": 23.5,
+   "cpc": 190.48,
+   "cpv": 0.073,
+   "id": "youtube-03",
+   "nome": "Cremação Cemitério Campo Santo",
+   "nomeOrigem": "Cremação Cemitério Campo Santo",
+   "plataforma": "YouTube",
+   "frente": "Cremação",
+   "estrategia": "Visualização",
+   "formato": "video",
+   "imagemOrigem": "https://i.ytimg.com/vi/n7RaH1aO5AU/hqdefault.jpg",
+   "link": "https://www.youtube.com/watch?v=n7RaH1aO5AU",
+   "imagem": "/criativos/youtube-03.jpg"
+  }
+ ],
+ "avisos": [
+  "Investimento = coluna Investimento da base (já distribuída pelo contratado); sem trava nem ajuste.",
+  "Alcance fora do relatório: a fonte não traz alcance único.",
+  "Busca: 90 linhas sem nome de anúncio (contam no total, fora da lista de anúncios)."
+ ]
+}

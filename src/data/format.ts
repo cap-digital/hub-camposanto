@@ -1,0 +1,131 @@
+/** Formatação pt-BR usada nas páginas e gráficos do relatório. */
+
+const cache = new Map<string, Intl.NumberFormat>();
+const nf = (o: Intl.NumberFormatOptions) => {
+  const k = JSON.stringify(o);
+  let f = cache.get(k);
+  if (!f) cache.set(k, (f = new Intl.NumberFormat("pt-BR", o)));
+  return f;
+};
+
+export function fmtNum(v: number, decimals = 0): string {
+  return nf({ maximumFractionDigits: decimals, minimumFractionDigits: 0 }).format(v);
+}
+
+export function fmtCompact(v: number, decimals = 1): string {
+  const a = Math.abs(v);
+  if (a >= 1e9) return `${fmtNum(v / 1e9, decimals)} bi`;
+  if (a >= 1e6) return `${fmtNum(v / 1e6, decimals)} mi`;
+  if (a >= 1e3) return `${fmtNum(v / 1e3, a >= 1e5 ? 0 : decimals)} mil`;
+  return fmtNum(v, 0);
+}
+
+/**
+ * Valor em R$. Sem abreviação, sempre com centavos: "R$ 1,10", "R$ 5.500,00".
+ * `compact` abrevia a partir de mil ("R$ 128,8 mil", casas = `decimals`, padrão 1); abaixo de mil, centavos
+ * ("R$ 873,07"), salvo `decimals: 0` explícito (rótulos de eixo: "R$ 0").
+ */
+export function fmtBRL(v: number, opts: { compact?: boolean; decimals?: number } = {}): string {
+  if (opts.compact && Math.abs(v) >= 1e3) return `R$ ${fmtCompact(v, opts.decimals ?? 1)}`;
+  const casas = opts.compact ? (opts.decimals === 0 ? 0 : 2) : (opts.decimals ?? 2);
+  return nf({ style: "currency", currency: "BRL", maximumFractionDigits: casas, minimumFractionDigits: casas }).format(v);
+}
+
+/** "R$ 129,3 mil" — milhares com uma casa fixa, como na tabela de referência do relatório. */
+export function fmtMil(v: number): string {
+  return `R$ ${nf({ minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v / 1e3)} mil`;
+}
+
+/** `v` em fração (0.42 → "42%"). */
+export function fmtPct(v: number, decimals = 1): string {
+  return `${fmtNum(v * 100, decimals)}%`;
+}
+
+const MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+
+/** "06 out". Com `anoRef` ("2026"), datas de outro ano levam o ano curto: "02 dez/25". */
+export function fmtDia(iso: string, anoRef?: string): string {
+  const [y, m, d] = iso.split("-").map(Number);
+  const ano = anoRef && String(y) !== anoRef ? `/${String(y).slice(2)}` : "";
+  return `${String(d).padStart(2, "0")} ${MESES[m - 1]}${ano}`;
+}
+
+const MESES_LONGOS = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+
+/** "dez/25" — mês e ano curtos. */
+export function fmtMesAno(iso: string): string {
+  const [y, m] = iso.split("-").map(Number);
+  return `${MESES[m - 1]}/${String(y).slice(2)}`;
+}
+
+/** "dezembro de 2025". */
+export function fmtMesAnoLongo(iso: string): string {
+  const [y, m] = iso.split("-").map(Number);
+  return `${MESES_LONGOS[m - 1]} de ${y}`;
+}
+
+export function fmtAtualizado(iso: string): string {
+  return new Intl.DateTimeFormat("pt-BR", { timeZone: "America/Sao_Paulo", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }).format(new Date(iso));
+}
+
+/* ------------------------------------------------- métrica principal por estratégia */
+
+type Base = { plataforma: string; estrategia: string; investimento: number; impressoes: number; cliques: number; views: number };
+type Chave = "cliques" | "impressoes" | "views";
+
+/** Metas do contrato: cada estratégia é medida por uma métrica e um custo. "Alcance" é nome de estratégia, nunca métrica. */
+const METRICA: Record<string, { chave: Chave; rotulo: string; custo: string }> = {
+  "Google|Pesquisa": { chave: "cliques", rotulo: "cliques", custo: "CPC" },
+  "Meta|Alcance": { chave: "impressoes", rotulo: "impressões", custo: "CPM" },
+  "YouTube|Visualização": { chave: "views", rotulo: "views", custo: "CPV" },
+};
+
+export interface MetricaPrincipal {
+  valor: number;
+  /** "cliques", "impressões", "views" */
+  rotulo: string;
+  custo: number;
+  /** "CPC", "CPM", "CPV" */
+  custoRotulo: string;
+}
+
+export function metricaPrincipal(e: Base): MetricaPrincipal {
+  const m = METRICA[`${e.plataforma}|${e.estrategia}`] ?? { chave: "impressoes", rotulo: "impressões", custo: "CPM" };
+  const valor = e[m.chave];
+  const custo = valor ? (m.chave === "impressoes" ? (e.investimento / valor) * 1000 : e.investimento / valor) : 0;
+  return { valor, rotulo: m.rotulo, custo, custoRotulo: m.custo };
+}
+
+/** "53,5 mil cliques · CPC R$ 0,63" */
+export function fmtMetricaPrincipal(e: Base): string {
+  const m = metricaPrincipal(e);
+  return `${fmtCompact(m.valor)} ${m.rotulo} · ${m.custoRotulo} ${fmtBRL(m.custo, { decimals: 2 })}`;
+}
+
+/* ------------------------------------------------- textos calculados do snapshot */
+
+const EXTENSO = ["zero", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove", "dez"];
+
+/** 0–10 por extenso ("sete"); acima disso, o número. `maiuscula` capitaliza ("Sete"). */
+export function fmtExtenso(n: number, maiuscula = false): string {
+  const s = EXTENSO[n] ?? fmtNum(n);
+  return maiuscula ? s[0].toUpperCase() + s.slice(1) : s;
+}
+
+/** "a, b e c" — junta itens que podem ter vírgula decimal ("R$ 1,0 mil"). */
+export function fmtLista(itens: string[]): string {
+  return itens.length < 2 ? (itens[0] ?? "") : `${itens.slice(0, -1).join(", ")} e ${itens[itens.length - 1]}`;
+}
+
+/** Fração como "quase 1 em cada 4" / "1 em cada 4" / "mais de 1 em cada 4". */
+export function fmtUmEmCada(v: number): string {
+  if (v <= 0) return "nenhum";
+  const n = Math.max(1, Math.round(1 / v));
+  const r = v * n;
+  return `${r < 0.98 ? "quase " : r > 1.02 ? "mais de " : ""}1 em cada ${n}`;
+}
+
+/** Célula da grade (ou métrica) que de fato rodou: investimento 0 e impressões 0 = não rodou (linhas vazias da coleta). */
+export function rodou(c: { investimento: number; impressoes: number }): boolean {
+  return c.investimento > 0 || c.impressoes > 0;
+}
