@@ -81,7 +81,7 @@ export function MonthlyChart({ meses, fim, height = 360 }: { meses: Mes[]; /** Ã
               ))}
               {yi.ticks(4).map((t) => (
                 <text key={t} x={iw + 12} y={yi(t)} dy="0.32em" className="fill-[var(--text-2)] font-mono text-[10.5px]">
-                  {fmtCompact(t, 0)}
+                  {fmtCompact(t, t >= 1e6 ? 1 : 0)}
                 </text>
               ))}
               {meses.map((d, i) => {

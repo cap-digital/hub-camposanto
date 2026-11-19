@@ -8,8 +8,10 @@ Uso:
      curl -sS -L -X POST 'https://cqrpbiepyeypbkizwacu.supabase.co/functions/v1/CampoSantoAON' \
        -H 'Authorization: Bearer <chave>' -H 'apikey: <chave>' \
        -H 'Content-Type: application/json' --data '{"name":"Functions"}' -o data/camposanto-dados.json
-  2) python3 scripts/build-snapshot.py data/camposanto-dados.json src/data/snapshot.json --de 2026-01-01 --ate 2026-11-15 --imagens
+  2) python3 scripts/build-snapshot.py data/camposanto-dados.json src/data/snapshot.json --de 2026-01-01 --ate 2026-11-15 \
+       --meta-aon data/meta-aon-camposanto.json --imagens
      (--de / --ate AAAA-MM-DD: corte de data, aplicado a todas as abas)
+     (--meta-aon: Meta do Institucional AON, extraído da API do Meta — "mensal", "publicoIdadeGenero" e "criativos")
      (--imagens baixa as miniaturas dos criativos para public/criativos/; as URLs do fbcdn expiram)
 
 Abas da função:
@@ -18,6 +20,13 @@ Abas da função:
   - cremacaoMeta    Campanha Cremação · Meta Alcance (idade × gênero, thumbnail, permalink)
   - cremacaoYT      Campanha Cremação · YouTube (visualização; taxas de quartil, URL do vídeo)
   - googlekeywords  Google Pesquisa por palavra-chave (date, campaign, clicks, impressions, conversions, keyword_text)
+
+Meta AON (--meta-aon):
+  - "mensal" (mes, estrategia, investimento, impressoes, cliques, cliquesLink, engajamento): Tráfego, Alcance e
+    Posts de oportunidade, dentro da campanha Institucional AON. Investimento = campo "investimento" como está.
+  - Sem meta contratada: só entrega. A meta de cliques do AON (909/mês) continua só sobre o Google Pesquisa.
+  - Métrica principal: Tráfego = cliques no link; Alcance e Posts de oportunidade = impressões.
+  - "publicoIdadeGenero" soma ao público do Meta; "criativos" entram na grade (imagem só em cópia local).
 
 Regras:
   - Investimento = coluna "Investimento" como vem. A base já distribui pelo contratado: NÃO há trava nem ajuste.
@@ -34,7 +43,7 @@ import os
 import sys
 import urllib.request
 from collections import defaultdict
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
 MESES_LONGOS = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]
@@ -43,12 +52,24 @@ FAIXAS = ["18-24", "25-34", "35-44", "45-54", "55-64", "65+"]
 AON = "Institucional AON"
 CREMACAO = "Cremação"
 
-# Canais (plataforma · estratégia). A ordem é a das linhas do mosaico.
-CANAIS = [
-    {"plataforma": "Google", "estrategia": "Pesquisa", "rotulo": "Pesquisa", "campanha": AON},
-    {"plataforma": "Meta", "estrategia": "Alcance", "rotulo": "Meta Alcance", "campanha": CREMACAO},
-    {"plataforma": "YouTube", "estrategia": "Visualização", "rotulo": "YouTube", "campanha": CREMACAO},
+# Plataformas (séries do gráfico mensal e blocos da página Mídia).
+PLATAFORMAS = [
+    {"plataforma": "Google", "rotulo": "Google Pesquisa"},
+    {"plataforma": "Meta", "rotulo": "Meta"},
+    {"plataforma": "YouTube", "rotulo": "YouTube"},
 ]
+
+# Linhas do mosaico (plataforma · estratégia · campanha). A ordem é a das linhas.
+LINHAS = [
+    {"id": "google-pesquisa", "plataforma": "Google", "estrategia": "Pesquisa", "rotulo": "Pesquisa", "campanha": AON},
+    {"id": "meta-trafego", "plataforma": "Meta", "estrategia": "Tráfego", "rotulo": "Meta Tráfego", "campanha": AON},
+    {"id": "meta-alcance-aon", "plataforma": "Meta", "estrategia": "Alcance", "rotulo": "Meta Alcance · AON", "campanha": AON},
+    {"id": "meta-oportunidade", "plataforma": "Meta", "estrategia": "Posts de oportunidade", "rotulo": "Posts de oportunidade", "campanha": AON},
+    {"id": "meta-alcance-cremacao", "plataforma": "Meta", "estrategia": "Alcance", "rotulo": "Meta Alcance · Cremação", "campanha": CREMACAO},
+    {"id": "youtube", "plataforma": "YouTube", "estrategia": "Visualização", "rotulo": "YouTube", "campanha": CREMACAO},
+]
+LINHA_DE = {(l["plataforma"], l["estrategia"], l["campanha"]): l["id"] for l in LINHAS}
+ESTRATEGIAS_META_AON = ["Tráfego", "Alcance", "Posts de oportunidade"]
 
 # Metas contratadas (não ajustam nada: só servem para o "% da meta" na interface).
 META_AON_MES = {"investimento": 2000, "cliques": 909}
@@ -78,7 +99,8 @@ def num(x):
 
 
 def metricas():
-    return {"investimento": 0.0, "impressoes": 0.0, "cliques": 0.0, "views": 0.0, "conversoes": 0.0}
+    # cliquesLink: só o Meta do AON traz (cliques no link, métrica principal do Tráfego).
+    return {"investimento": 0.0, "impressoes": 0.0, "cliques": 0.0, "cliquesLink": 0.0, "views": 0.0, "conversoes": 0.0}
 
 
 def soma(m, r):
@@ -124,10 +146,43 @@ def normaliza(raw, de, ate):
                 "investimento": num(r.get("Investimento")),
                 "impressoes": num(r.get("impressions")),
                 "cliques": num(r.get("clicks")),
+                "cliquesLink": 0.0,
                 # Views: YouTube = TrueView; Meta = actions_video_view (3 s). A interface separa as duas.
                 "views": views,
                 "conversoes": num(r.get("conversions")),
             })
+    return rows
+
+
+def fim_do_mes(mes):
+    a, m = int(mes[:4]), int(mes[5:7])
+    prox = datetime(a + (m == 12), m % 12 + 1, 1)
+    return (prox - timedelta(days=1)).strftime("%Y-%m-%d")
+
+
+def normaliza_meta_aon(meta_aon, de, ate):
+    """Meta AON ("mensal") → linhas no mesmo formato, uma por mês × estratégia. Sem data diária: o dia é o 1º do mês
+    (ou o início do corte), só para os períodos."""
+    rows, fora = [], 0
+    for r in meta_aon.get("mensal", []):
+        mes = r.get("mes") or ""
+        if not (de[:7] <= mes <= ate[:7]):
+            fora += 1
+            continue
+        estr = r.get("estrategia") or ""
+        if estr not in ESTRATEGIAS_META_AON:
+            sys.exit(f"ERRO: estratégia Meta AON desconhecida: {estr!r}")
+        rows.append({
+            "_tabela": "metaAon", "_raw": r, "_dia": max(de, f"{mes}-01"), "_diaFim": min(ate, fim_do_mes(mes)), "_mes": mes, "_plat": "Meta", "_estr": estr, "_camp": AON,
+            "_nomeCampanha": r.get("campanha") or "", "_criativo": "",
+            "investimento": num(r.get("investimento")),
+            "impressoes": num(r.get("impressoes")),
+            "cliques": num(r.get("cliques")),
+            "cliquesLink": num(r.get("cliquesLink")),
+            "views": 0.0,
+            "conversoes": 0.0,
+        })
+    print(f"{'metaAon':13} {len(rows):5} linhas (mês × estratégia) no período · {fora} fora de {de[:7]} → {ate[:7]}")
     return rows
 
 
@@ -168,8 +223,9 @@ def palavras_chave(linhas, de, ate, cliques_pesquisa):
     return {"porFrente": {AON: lista}, "totais": {AON: totais}}
 
 
-def main(src, dst, baixar_imagens, de, ate):
+def main(src, dst, baixar_imagens, de, ate, meta_aon_src=None):
     raw = json.load(open(src, encoding="utf-8"))
+    meta_aon = json.load(open(meta_aon_src, encoding="utf-8")) if meta_aon_src else {}
     avisos = []
 
     # google × google2: as abas não podem se sobrepor.
@@ -180,7 +236,9 @@ def main(src, dst, baixar_imagens, de, ate):
         sys.exit(f"ERRO: google e google2 têm {len(comuns)} data(s) em comum: {', '.join(comuns[:10])}")
     print(f"google × google2: sem datas em comum (google2 {min(g2)} → {max(g2)} · google {min(g1)} → {max(g1)})")
 
-    rows = normaliza(raw, de, ate)
+    rows = normaliza(raw, de, ate) + normaliza_meta_aon(meta_aon, de, ate)
+    for r in rows:
+        r["_linha"] = LINHA_DE[(r["_plat"], r["_estr"], r["_camp"])]
     sem_data = sum(1 for t in ("google", "google2", "cremacaoMeta", "cremacaoYT") for r in raw.get(t, []) if not dia_de(r))
     if sem_data:
         avisos.append(f"{sem_data} linhas sem data descartadas.")
@@ -197,15 +255,21 @@ def main(src, dst, baixar_imagens, de, ate):
     for r in rows:
         soma(tot, r)
         soma(por_canal[r["_plat"]], r)
-        canal_dias[r["_plat"]].append(r["_dia"])
+        canal_dias[r["_plat"]] += [r["_dia"], r.get("_diaFim", r["_dia"])]
 
-    canais = [fecha(por_canal[c["plataforma"]], {**c, "inicio": min(canal_dias[c["plataforma"]]), "fim": max(canal_dias[c["plataforma"]])})
-              for c in CANAIS if c["plataforma"] in por_canal]
+    def nomes(campo, plat):
+        return " · ".join(dict.fromkeys(l[campo] for l in LINHAS if l["plataforma"] == plat and any(r["_linha"] == l["id"] for r in rows)))
+
+    canais = [fecha(por_canal[c["plataforma"]], {**c, "estrategia": nomes("estrategia", c["plataforma"]), "campanha": nomes("campanha", c["plataforma"]),
+                                                 "inicio": min(canal_dias[c["plataforma"]]), "fim": max(canal_dias[c["plataforma"]])})
+              for c in PLATAFORMAS if c["plataforma"] in por_canal]
 
     # ---------------------------------------------------------------- meses
     meses_map = defaultdict(lambda: defaultdict(metricas))
+    linhas_mes = defaultdict(lambda: defaultdict(metricas))
     for r in rows:
         soma(meses_map[r["_mes"]][r["_plat"]], r)
+        soma(linhas_mes[r["_mes"]][r["_linha"]], r)
     meses = []
     for mes in sorted(meses_map):
         m_idx = int(mes[5:7]) - 1
@@ -213,44 +277,51 @@ def main(src, dst, baixar_imagens, de, ate):
         item = {"mes": mes, "rotulo": MESES[m_idx], "nome": MESES_LONGOS[m_idx],
                 "parcial": mes == fim[:7] and fim[8:] < "28"}
         total_mes = metricas()
-        for c in CANAIS:
+        for c in PLATAFORMAS:
             m = meses_map[mes].get(c["plataforma"], metricas())
             item[c["plataforma"].lower()] = fecha(m)
             soma(total_mes, m)
         item["total"] = fecha(total_mes)
-        item["estrategiasAtivas"] = sum(1 for c in CANAIS if meses_map[mes].get(c["plataforma"], metricas())["impressoes"] > 0)
+        # Linhas do mosaico (plataforma · estratégia · campanha) que rodaram no mês.
+        item["estrategiasAtivas"] = sum(1 for l in LINHAS if linhas_mes[mes].get(l["id"], metricas())["impressoes"] > 0)
         meses.append(item)
 
     # ---------------------------------------------------------------- grade canal × mês (o ano em mosaico)
     gm = defaultdict(metricas)
     gm_camp = defaultdict(set)
     for r in rows:
-        k = (r["_plat"], r["_estr"], r["_mes"])
+        k = (r["_linha"], r["_mes"])
         soma(gm[k], r)
         gm_camp[k].add(r["_nomeCampanha"])
-    camp_de = {c["plataforma"]: c["campanha"] for c in CANAIS}
+    linha = {l["id"]: l for l in LINHAS}
+    ordem_linha = {l["id"]: i for i, l in enumerate(LINHAS)}
+    usadas = {r["_linha"] for r in rows}
     grade = {
         "meses": sorted(meses_map),
-        "linhas": [{"plataforma": c["plataforma"], "estrategia": c["estrategia"], "rotulo": c["rotulo"]} for c in CANAIS],
-        "celulas": [fecha(m, {"plataforma": k[0], "estrategia": k[1], "mes": k[2],
-                              "frentes": [camp_de[k[0]]], "campanhas": len(gm_camp[k])})
-                    for k, m in sorted(gm.items(), key=lambda kv: (kv[0][2], kv[0][0]))],
+        "linhas": [{k: l[k] for k in ("id", "plataforma", "estrategia", "rotulo", "campanha")} for l in LINHAS if l["id"] in usadas],
+        "celulas": [fecha(m, {"linha": k[0], "plataforma": linha[k[0]]["plataforma"], "estrategia": linha[k[0]]["estrategia"],
+                              "campanha": linha[k[0]]["campanha"], "mes": k[1],
+                              "frentes": [linha[k[0]]["campanha"]], "campanhas": len(gm_camp[k])})
+                    for k, m in sorted(gm.items(), key=lambda kv: (kv[0][1], ordem_linha[kv[0][0]]))],
     }
 
     # ---------------------------------------------------------------- campanhas e metas
     def periodo(rs):
-        ds = [r["_dia"] for r in rs]
+        # Meta AON vem por mês: o período vai até o fim do mês (limitado ao corte).
+        ds = [d for r in rs for d in (r["_dia"], r.get("_diaFim", r["_dia"]))]
         return {"inicio": min(ds), "fim": max(ds)} if ds else {"inicio": "", "fim": ""}
 
     aon_rows = [r for r in rows if r["_camp"] == AON]
     aon = metricas()
     for r in aon_rows:
         soma(aon, r)
+    # Metas do AON (R$ 2.000 e 909 cliques/mês) = só Google Pesquisa. O Meta do AON não tem meta: só entrega.
+    pesquisa_rows = [r for r in aon_rows if r["_plat"] == "Google"]
     aon_mes = defaultdict(metricas)
-    for r in aon_rows:
+    for r in pesquisa_rows:
         soma(aon_mes[r["_mes"]], r)
     aon_dias_mes = defaultdict(set)
-    for r in aon_rows:
+    for r in pesquisa_rows:
         aon_dias_mes[r["_mes"]].add(r["_dia"])
     metas_aon = []
     for mes in sorted(aon_mes):
@@ -264,9 +335,29 @@ def main(src, dst, baixar_imagens, de, ate):
             "pctCliques": round(m["cliques"] / META_AON_MES["cliques"], 4),
         }))
     fechados = [x for x in metas_aon if not x["parcial"]]
+    aon_por_canal = {}
+    for plat in ("Google", "Meta"):
+        rs = [r for r in aon_rows if r["_plat"] == plat]
+        if not rs:
+            continue
+        m = metricas()
+        for r in rs:
+            soma(m, r)
+        aon_por_canal[plat] = fecha(m, periodo(rs))
+    estrategias_meta = []
+    for estr in ESTRATEGIAS_META_AON:
+        rs = [r for r in aon_rows if r["_plat"] == "Meta" and r["_estr"] == estr]
+        if not rs:
+            continue
+        m = metricas()
+        for r in rs:
+            soma(m, r)
+        estrategias_meta.append(fecha(m, {"plataforma": "Meta", "estrategia": estr, **periodo(rs)}))
     campanha_aon = fecha(aon, {
         "campanha": AON, **periodo(aon_rows),
-        "canais": ["Google"],
+        "canais": list(aon_por_canal),
+        "porCanal": aon_por_canal,
+        "estrategiasMeta": estrategias_meta,
         "metaMensal": META_AON_MES,
         "metas": metas_aon,
         "mesesNaMeta": sum(1 for x in fechados if x["cliques"] >= x["metaCliques"]),
@@ -299,14 +390,14 @@ def main(src, dst, baixar_imagens, de, ate):
     # ---------------------------------------------------------------- busca (Google Pesquisa)
     busca = metricas()
     anuncios = defaultdict(metricas)
-    for r in aon_rows:
+    for r in pesquisa_rows:
         soma(busca, r)
         if r["_criativo"].strip():
             soma(anuncios[r["_criativo"]], r)
-    sem_nome = sum(1 for r in aon_rows if not r["_criativo"].strip())
+    sem_nome = sum(1 for r in pesquisa_rows if not r["_criativo"].strip())
     if sem_nome:
         avisos.append(f"Busca: {sem_nome} linhas sem nome de anúncio (contam no total, fora da lista de anúncios).")
-    cliques_pesquisa = sum(r["cliques"] for r in aon_rows)
+    cliques_pesquisa = sum(r["cliques"] for r in pesquisa_rows)
     busca_out = fecha(busca, {
         "anuncios": [
             fecha(m, {"titulos": [t.strip() for t in nome.split("|") if t.strip()][:4], "frente": AON})
@@ -317,21 +408,29 @@ def main(src, dst, baixar_imagens, de, ate):
 
     # ---------------------------------------------------------------- público (Meta: idade × gênero)
     ig = defaultdict(lambda: {"impressoes": 0.0, "cliques": 0.0, "investimento": 0.0})
+
+    def chave_publico(idade, gen):
+        idade = (idade or "").strip()
+        gen = (gen or "").strip().lower()
+        return (idade if idade in FAIXAS else "desconhecida", gen if gen in ("female", "male") else "unknown")
+
     for r in rows:
-        if r["_plat"] != "Meta":
+        if r["_tabela"] != "cremacaoMeta":
             continue
-        idade = (r["_raw"].get("age") or "").strip()
-        idade = idade if idade in FAIXAS else "desconhecida"
-        gen = (r["_raw"].get("gender") or "").strip().lower()
-        gen = gen if gen in ("female", "male") else "unknown"
-        x = ig[(idade, gen)]
+        x = ig[chave_publico(r["_raw"].get("age"), r["_raw"].get("gender"))]
         x["impressoes"] += r["impressoes"]
         x["cliques"] += r["cliques"]
         x["investimento"] += r["investimento"]
+    # Meta AON: idade × gênero do período inteiro (sem data por linha).
+    for p in meta_aon.get("publicoIdadeGenero", []):
+        x = ig[chave_publico(p.get("idade"), p.get("genero"))]
+        x["impressoes"] += num(p.get("impressoes"))
+        x["cliques"] += num(p.get("cliques"))
+        x["investimento"] += num(p.get("investimento"))
     publico_meta = [{"idade": k[0], "genero": k[1], **{m: round(v, 2) for m, v in x.items()}} for k, x in sorted(ig.items())]
 
     # ---------------------------------------------------------------- vídeo
-    meta_rows = [r for r in rows if r["_plat"] == "Meta"]
+    meta_rows = [r for r in rows if r["_tabela"] == "cremacaoMeta"]  # vídeo da Cremação
     vm = {"views": round(sum(r["views"] for r in meta_rows)),
           "reproducoes": round(sum(num(r["_raw"].get("video_play_actions_video_view")) for r in meta_rows)),
           "thruplays": round(sum(num(r["_raw"].get("video_thruplay_watched_actions_video_view")) for r in meta_rows))}
@@ -353,8 +452,8 @@ def main(src, dst, baixar_imagens, de, ate):
     cr = defaultdict(metricas)
     cr_info = {}
     for r in rows:
-        if r["_plat"] == "Google":
-            continue  # anúncios de texto ficam na seção de busca
+        if r["_plat"] == "Google" or r["_tabela"] == "metaAon":
+            continue  # anúncios de texto ficam na seção de busca; o Meta AON traz os criativos à parte
         raw_r = r["_raw"]
         nome = (raw_r.get("video_title") or r["_criativo"]) if r["_plat"] == "YouTube" else r["_criativo"]
         k = (r["_plat"], nome)
@@ -380,8 +479,35 @@ def main(src, dst, baixar_imagens, de, ate):
         criativos.append(fecha(cr[(p, nome)], {"id": f"{p.lower()}-{i:02d}", "nome": rotulo, "nomeOrigem": nome, "plataforma": p,
                                                **info, "imagem": info["imagemOrigem"]}))
 
+    # Meta AON: peças já agrupadas na extração. A imagem fica só na cópia local (fbcdn expira).
+    pasta = os.path.join(os.path.dirname(os.path.abspath(dst)), "..", "..", "public", "criativos")
+    criativos_aon = []
+    for c in meta_aon.get("criativos", []):
+        m = metricas()
+        for k in ("investimento", "impressoes", "cliques", "cliquesLink"):
+            m[k] = num(c.get(k))
+        criativos_aon.append((c.get("imagemOrigem") or "", fecha(m, {
+            "id": c["id"], "nome": c.get("titulo") or "Imagem", "nomeOrigem": c.get("titulo") or "", "plataforma": "Meta",
+            "frente": AON, "estrategia": "", "formato": "imagem", "imagemOrigem": "", "link": c.get("link") or "", "imagem": ""})))
     if baixar_imagens:
-        pasta = os.path.join(os.path.dirname(os.path.abspath(dst)), "..", "..", "public", "criativos")
+        os.makedirs(pasta, exist_ok=True)
+    for origem, c in criativos_aon:
+        destino = os.path.join(pasta, f"{c['id']}.jpg")
+        if baixar_imagens and origem:
+            try:
+                req = urllib.request.Request(origem, headers={"User-Agent": "Mozilla/5.0"})
+                with urllib.request.urlopen(req, timeout=30) as resp:
+                    dados = resp.read()
+                with open(destino, "wb") as fh:
+                    fh.write(dados)
+            except Exception as e:
+                avisos.append(f"Miniatura não baixada: {c['nome']} ({e.__class__.__name__}).")
+        if os.path.exists(destino):
+            c["imagem"] = f"/criativos/{c['id']}.jpg"
+        else:
+            avisos.append(f"Sem cópia local da miniatura: {c['nome']} (rode com --imagens).")
+
+    if baixar_imagens:
         os.makedirs(pasta, exist_ok=True)
         for c in criativos:
             destino = os.path.join(pasta, f"{c['id']}.jpg")
@@ -396,6 +522,9 @@ def main(src, dst, baixar_imagens, de, ate):
                     avisos.append(f"Miniatura não baixada, mantida a cópia local: {c['nome']} ({e.__class__.__name__}).")
                 else:
                     avisos.append(f"Miniatura não baixada: {c['nome']} ({e.__class__.__name__}).")
+
+    # Grade: Meta (AON + Cremação) por impressões, depois YouTube.
+    criativos = sorted(criativos + [c for _, c in criativos_aon], key=lambda c: (c["plataforma"] != "Meta", -c["impressoes"]))
 
     snapshot = {
         "cliente": "Cemitério Campo Santo",
@@ -428,6 +557,26 @@ def main(src, dst, baixar_imagens, de, ate):
     for x in metas_cre:
         print(f"  Cremação {x['plataforma']:7} R$ {br(x['investimento'], 2)} · {br(x['impressoes'])} impr. · {br(x['cliques'])} cliques · "
               f"{br(x['views'])} views · {x['pctMeta'] * 100:.0f}% da meta de {x['metrica']}  ({x['inicio']} → {x['fim']})")
+    if meta_aon:
+        ma = aon_por_canal.get("Meta", fecha(metricas()))
+        print(f"\nconferência · Meta AON: R$ {br(ma['investimento'], 2)} | {br(ma['impressoes'])} impressões | {br(ma['cliquesLink'])} cliques no link"
+              f" ({br(ma['cliques'])} cliques)")
+        ma_mes = defaultdict(float)
+        for r in rows:
+            if r["_tabela"] == "metaAon":
+                ma_mes[r["_mes"]] += r["investimento"]
+        print("  por mês (R$): " + " · ".join(f"{MESES[int(k[5:7]) - 1]} {br(v, 2)}" for k, v in sorted(ma_mes.items())))
+        for e in estrategias_meta:
+            principal = f"{br(e['cliquesLink'])} cliques no link" if e["estrategia"] == "Tráfego" else f"{br(e['impressoes'])} impressões"
+            print(f"  {e['estrategia']:22} R$ {br(e['investimento'], 2):>9} · {principal}")
+        ref = meta_aon.get("totais", {})
+        for k in ("investimento", "impressoes", "cliquesLink"):
+            if k in ref and abs(num(ref[k]) - ma[k]) > 0.01:
+                print(f"  ATENÇÃO: {k} {ma[k]} ≠ totais do arquivo {ref[k]}")
+        g = aon_por_canal.get("Google", fecha(metricas()))
+        print(f"  Institucional AON: R$ {br(campanha_aon['investimento'], 2)} (Google R$ {br(g['investimento'], 2)} + Meta R$ {br(ma['investimento'], 2)})")
+        print(f"  total do relatório: R$ {br(tot['investimento'] - ma['investimento'], 2)} + R$ {br(ma['investimento'], 2)} = R$ {br(tot['investimento'], 2)}")
+        print(f"  criativos Meta AON: {len(criativos_aon)} · {sum(1 for _, c in criativos_aon if c['imagem'])} com imagem local")
     t = snapshot["totais"]
     print(f"\nok → {dst}  ·  {inicio} → {fim}  ·  R$ {br(t['investimento'], 2)}  ·  {br(t['impressoes'])} impressões  ·  {len(criativos)} criativos")
 
@@ -447,11 +596,25 @@ def _arg(argv, nome):
     return v
 
 
+def _arg_arquivo(argv, nome):
+    if nome not in argv:
+        return None
+    i = argv.index(nome)
+    if i + 1 >= len(argv) or argv[i + 1].startswith("--"):
+        sys.exit(f"{nome} precisa de um arquivo")
+    v = argv[i + 1]
+    if not os.path.isfile(v):
+        sys.exit(f"{nome}: arquivo não encontrado {v!r}")
+    del argv[i:i + 2]
+    return v
+
+
 if __name__ == "__main__":
     argv = sys.argv[1:]
+    meta_aon_src = _arg_arquivo(argv, "--meta-aon")
     de = _arg(argv, "--de") or "2026-01-01"
     ate = _arg(argv, "--ate") or "2026-11-15"
     args = [a for a in argv if not a.startswith("--")]
     if len(args) != 2:
-        sys.exit("uso: build-snapshot.py <camposanto-dados.json> <src/data/snapshot.json> [--de AAAA-MM-DD] [--ate AAAA-MM-DD] [--imagens]")
-    main(args[0], args[1], "--imagens" in argv, de, ate)
+        sys.exit("uso: build-snapshot.py <camposanto-dados.json> <src/data/snapshot.json> [--de AAAA-MM-DD] [--ate AAAA-MM-DD] [--meta-aon <arquivo>] [--imagens]")
+    main(args[0], args[1], "--imagens" in argv, de, ate, meta_aon_src)

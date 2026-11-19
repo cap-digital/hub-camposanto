@@ -17,19 +17,20 @@ const F = "var(--amber)";
 const M = "var(--dusk-2)";
 
 /**
- * Entrega do Meta por gênero × idade, com seletor do tipo de entrega. Em % do total
- * do tipo escolhido; idade ou gênero não informados entram no total e na nota.
+ * Entrega do Meta por gênero × idade, com seletor do tipo de entrega. Em % do total do tipo escolhido
+ * com idade e gênero informados (idade "desconhecida" e gênero "unknown" ficam fora do gráfico).
  */
-export function EntregaPublico({ linhas }: { linhas: PublicoMeta[] }) {
+export function EntregaPublico({ linhas: todas }: { linhas: PublicoMeta[] }) {
   const [tipo, setTipo] = useState<Tipo>("impressoes");
-  const { rows, total, totF, totM, totU } = useMemo(() => {
+  const linhas = useMemo(() => todas.filter((l) => ORDEM.includes(l.idade) && (l.genero === "female" || l.genero === "male")), [todas]);
+  const { rows, total, totF, totM } = useMemo(() => {
     const faixas = ORDEM.filter((f) => linhas.some((l) => l.idade === f));
     const v = (idade: string, g: string) => linhas.filter((l) => l.idade === idade && l.genero === g).reduce((s, l) => s + l[tipo], 0);
     const rows = faixas.map((faixa) => ({ faixa, f: v(faixa, "female"), m: v(faixa, "male") }));
     const totF = rows.reduce((s, r) => s + r.f, 0);
     const totM = rows.reduce((s, r) => s + r.m, 0);
     const total = linhas.reduce((s, l) => s + l[tipo], 0) || 1;
-    return { rows, total, totF, totM, totU: total - totF - totM };
+    return { rows, total, totF, totM };
   }, [linhas, tipo]);
   const max = Math.max(...rows.flatMap((r) => [r.f, r.m]), 1);
 
@@ -69,7 +70,7 @@ export function EntregaPublico({ linhas }: { linhas: PublicoMeta[] }) {
         ))}
       </div>
       <p className="mt-6 font-mono text-[10.5px] uppercase tracking-[0.14em] text-text-3">
-        Idade ou gênero não informados: {fmtPct(totU / total, 1)} · percentuais sobre o total de {TIPOS.find((t) => t.k === tipo)?.label.toLowerCase()}
+        Percentuais sobre o total de {TIPOS.find((t) => t.k === tipo)?.label.toLowerCase()} com idade e gênero informados
       </p>
     </div>
   );

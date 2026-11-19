@@ -1,6 +1,6 @@
 # Balanço de mídia 2026 · Cemitério Campo Santo (01/jan → 15/nov)
 
-Balanço de apresentação para o **Cemitério Campo Santo (Santa Casa da Bahia)**: a mídia digital de 2026, de 01/01 a 15/11. São **duas campanhas** (no lugar das quatro frentes do HSI): o **Institucional AON**, no Google Pesquisa ao longo do ano, e a **Campanha Cremação**, no Meta e no YouTube. O relatório é **agregado**, com números grandes, comparações e metas atingidas. Não tem leitura dia a dia nem filtro de data.
+Balanço de apresentação para o **Cemitério Campo Santo (Santa Casa da Bahia)**: a mídia digital de 2026, de 01/01 a 15/11. São **duas campanhas** (no lugar das quatro frentes do HSI): o **Institucional AON**, no Google Pesquisa e no Meta ao longo do ano, e a **Campanha Cremação**, no Meta e no YouTube. O relatório é **agregado**, com números grandes, comparações e metas atingidas. Não tem leitura dia a dia nem filtro de data.
 
 **Base:** réplica do projeto `../relatorio-hsi` (Hospital Santa Izabel), com a mesma arquitetura, os mesmos componentes e o mesmo motion. Mudam a **pele** (cores, fontes, textos) e o **conteúdo**. Não invente componentes nem seções fora do que está descrito aqui.
 
@@ -13,8 +13,10 @@ Balanço de apresentação para o **Cemitério Campo Santo (Santa Casa da Bahia)
 - **`src/data/snapshot.json`** é a única fonte. É estático, já vem agregado e as páginas são HTML gerado no build. Nenhuma API é chamada em tempo de execução. As páginas importam o snapshot tipado de `src/data/snapshot.ts`, nunca o JSON direto, porque os literais de plataforma não são inferidos do JSON.
 - **Para regenerar:**
   ```
-  python3 scripts/build-snapshot.py data/camposanto-dados.json src/data/snapshot.json --de 2026-01-01 --ate 2026-11-15 --imagens
+  python3 scripts/build-snapshot.py data/camposanto-dados.json src/data/snapshot.json --de 2026-01-01 --ate 2026-11-15 \
+    --meta-aon data/meta-aon-camposanto.json --imagens
   ```
+- **`--meta-aon`** traz o Meta do Institucional AON (extraído da API do Meta): `mensal` (mês × estratégia: Tráfego, Alcance, Posts de oportunidade), `publicoIdadeGenero` e `criativos`. Investimento = campo `investimento` como está, sem escala nem trava. Entra **dentro** do Institucional AON, sem meta contratada (só entrega); a meta de 909 cliques/mês continua só sobre o Google Pesquisa. Métrica principal: Tráfego = cliques no link; Alcance e Posts de oportunidade = impressões. As imagens dos criativos ficam só em `public/criativos/meta-aon-*.jpg`.
   O `curl` que baixa `data/camposanto-dados.json` está no topo do script (função `CampoSantoAON`, `--data '{"name":"Functions"}'`). A pasta `data/` fica no `.gitignore`.
 - **`--imagens`** baixa as miniaturas dos criativos para `public/criativos/`, porque as URLs do fbcdn expiram. Rode uma vez localmente antes do deploy.
 
@@ -57,9 +59,9 @@ Balanço de apresentação para o **Cemitério Campo Santo (Santa Casa da Bahia)
 
 | Métrica | Valor |
 |---|---|
-| Investimento total | R$ 27.788,88 (AON R$ 20.788,87 · Cremação R$ 7.000,00) |
-| Impressões | 1.044.459 |
-| Cliques | 12.498 (10.834 na busca) |
+| Investimento total | R$ 58.905,13 (AON R$ 51.905,13 = Google R$ 20.788,88 + Meta R$ 31.116,25 · Cremação R$ 7.000,00) |
+| Impressões | 16.115.265 |
+| Cliques | 161.773 (10.834 na busca; Meta AON 149.275, dos quais 135.717 no link) |
 | Conversões | 361 (Google Pesquisa) |
 | Views YouTube | 55.032 · CPV R$ 0,07 |
 | CPC da busca | R$ 1,92 · CTR 7,4% |
@@ -76,7 +78,8 @@ Balanço de apresentação para o **Cemitério Campo Santo (Santa Casa da Bahia)
   - 10.810 cliques contra 10.834 da Pesquisa (−0,2%, fonte completa);
   - 30 termos com ≥ 1 conversão.
   - A soma das conversões das keywords (363) difere do consolidado (361), por isso o resumo do bloco não mostra conversões.
-- **Criativos:** 3 no total (2 do Meta e 1 vídeo do YouTube).
+- **Meta AON (01/01 → 15/11):** R$ 31.116,25, 15.070.806 impressões e 135.717 cliques no link. Tráfego R$ 16.502,37 (123.829 cliques no link) · Alcance R$ 11.903,72 (9.595.158 impressões) · Posts de oportunidade R$ 2.710,16 (2.183.957 impressões, jan → out).
+- **Criativos:** 12 no total (9 do Meta no AON, 2 do Meta na Cremação e 1 vídeo do YouTube), Meta por impressões e depois YouTube; no PDF, todos em 6 colunas.
 
 ---
 

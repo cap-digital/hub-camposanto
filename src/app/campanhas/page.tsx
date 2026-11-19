@@ -6,9 +6,9 @@ import { Reveal } from "@/components/core/reveal";
 import { Section } from "@/components/core/section";
 import { PageHero } from "@/components/hero/page-hero";
 import { HBars } from "@/components/viz/hbars";
-import { fmtBRL, fmtDia, fmtExtenso, fmtMil, fmtNum, fmtPct } from "@/data/format";
+import { fmtBRL, fmtCompact, fmtDia, fmtExtenso, fmtMil, fmtNum, fmtPct, metricaPrincipal } from "@/data/format";
 import { s } from "@/data/snapshot";
-import type { MetaCanalCremacao } from "@/data/types";
+import type { EstrategiaMetaAon, MetaCanalCremacao } from "@/data/types";
 
 export const metadata: Metadata = { title: "Campanhas · Campo Santo" };
 
@@ -29,6 +29,8 @@ export default function Campanhas() {
   const topo = Math.max(...aon.metas.map((m) => m.cliques), aon.metaMensal.cliques) * 1.04;
   const [cMeta, cYt] = cremacao.metas;
   const todos = aon.mesesNaMeta === aon.mesesFechados;
+  const pesquisa = aon.porCanal.Google;
+  const metaAon = aon.porCanal.Meta;
 
   return (
     <main>
@@ -41,7 +43,7 @@ export default function Campanhas() {
             Duas campanhas, <em>frente às metas.</em>
           </>
         }
-        description={`O Institucional AON tinha como meta ${fmtBRL(aon.metaMensal.investimento, { decimals: 0 })} e ${fmtNum(aon.metaMensal.cliques)} cliques por mês; a campanha de Cremação, ${fmtNum(cMeta.meta)} impressões no Meta e ${fmtNum(cYt.meta)} views no YouTube.`}
+        description={`No Institucional AON, a busca do Google tinha como meta ${fmtBRL(aon.metaMensal.investimento, { decimals: 0 })} e ${fmtNum(aon.metaMensal.cliques)} cliques por mês${metaAon ? ", e o Meta somou alcance e tráfego ao longo do ano" : ""}; a campanha de Cremação, ${fmtNum(cMeta.meta)} impressões no Meta e ${fmtNum(cYt.meta)} views no YouTube.`}
         kpis={
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
             <KpiTile
@@ -50,7 +52,7 @@ export default function Campanhas() {
               format="compactCurrency"
               decimals={1}
               tone="amber"
-              hint={`${fmtDia(aon.inicio)} → ${fmtDia(aon.fim)} · Google Pesquisa`}
+              hint={`${fmtDia(aon.inicio)} → ${fmtDia(aon.fim)} · ${metaAon ? "Google Pesquisa e Meta" : "Google Pesquisa"}`}
             />
             <KpiTile
               label="Cliques · AON"
@@ -58,7 +60,7 @@ export default function Campanhas() {
               format="percent"
               decimals={0}
               tone="amber"
-              hint={`Da meta de cliques, jan → ${fechados[fechados.length - 1].rotulo}`}
+              hint={`Da meta de cliques da busca, jan → ${fechados[fechados.length - 1].rotulo}`}
             />
             <KpiTile
               label="Cremação"
@@ -99,7 +101,7 @@ export default function Campanhas() {
             )}
           </>
         }
-        description={`De ${fechados[0].nome} a ${fechados[fechados.length - 1].nome}, o investimento seguiu o contratado (${fmtBRL(aon.metaMensal.investimento, { decimals: 0 })} por mês) e os cliques ficaram entre ${fmtNum(menor.cliques)}, em ${menor.nome}, e ${fmtNum(melhor.cliques)}, em ${melhor.nome}: ${fmtNum(soma("cliques"))} no total, contra a meta de ${fmtNum(metaCliques)}.${parcial ? ` ${maiuscula(parcial.nome)} é parcial: a busca rodou de ${fmtDia(parcial.inicio)} a ${fmtDia(parcial.fim)}.` : ""}`}
+        description={`${metaAon && pesquisa ? `Com ${fmtMil(aon.investimento)} no ano, o Institucional AON reuniu a busca do Google (${fmtMil(pesquisa.investimento)}) e o Meta (${fmtMil(metaAon.investimento)}). ` : ""}Na busca, de ${fechados[0].nome} a ${fechados[fechados.length - 1].nome}, o investimento seguiu o contratado (${fmtBRL(aon.metaMensal.investimento, { decimals: 0 })} por mês) e os cliques ficaram entre ${fmtNum(menor.cliques)}, em ${menor.nome}, e ${fmtNum(melhor.cliques)}, em ${melhor.nome}: ${fmtNum(soma("cliques"))} no total, contra a meta de ${fmtNum(metaCliques)}.${parcial ? ` ${maiuscula(parcial.nome)} é parcial: a busca rodou de ${fmtDia(parcial.inicio)} a ${fmtDia(parcial.fim)}.` : ""}`}
       >
         <span className="eyebrow text-text-3">
           Metas atingidas · {fechados[0].rotulo} → {fechados[fechados.length - 1].rotulo}
@@ -131,7 +133,7 @@ export default function Campanhas() {
       </Section>
 
       {/* Mês a mês em seção própria: uma página a mais no PDF, sem zoom excessivo. */}
-      <Section eyebrow="Institucional AON · mês a mês">
+      <Section eyebrow="Institucional AON · busca do Google · mês a mês">
         <div>
           <ChartFrame
             eyebrow="Cliques × meta, mês a mês"
@@ -167,6 +169,26 @@ export default function Campanhas() {
         </div>
       </Section>
 
+      {metaAon && (
+        <Section
+          eyebrow="Institucional AON · Meta"
+          tone="dusk"
+          title={
+            <>
+              No Meta, {fmtCompact(metaAon.impressoes, 1)} de impressões <em>ao longo do ano.</em>
+            </>
+          }
+          description={`De ${fmtDia(metaAon.inicio)} a ${fmtDia(metaAon.fim)}, ${fmtMil(metaAon.investimento)} em ${fmtExtenso(aon.estrategiasMeta.length)} estratégias no Facebook e no Instagram: ${fmtCompact(metaAon.cliquesLink, 1)} cliques no link e ${fmtCompact(metaAon.impressoes, 1)} de impressões, a um CPM de ${fmtBRL(metaAon.cpm, { decimals: 2 })}.`}
+        >
+          <span className="eyebrow text-text-3">Entrega por estratégia</span>
+          <div className="mt-4 grid gap-4 lg:grid-cols-3">
+            {aon.estrategiasMeta.map((e) => (
+              <EntregaMeta key={e.estrategia} e={e} total={metaAon.investimento} />
+            ))}
+          </div>
+        </Section>
+      )}
+
       <Section
         index="02"
         eyebrow="Cremação · Meta e YouTube"
@@ -185,6 +207,39 @@ export default function Campanhas() {
         </div>
       </Section>
     </main>
+  );
+}
+
+/** Entrega de uma estratégia do Meta no AON: métrica principal, custo e investimento (sem meta). */
+function EntregaMeta({ e, total }: { e: EstrategiaMetaAon; total: number }) {
+  const m = metricaPrincipal(e);
+  return (
+    <Reveal>
+      <div className="hub-card flex h-full flex-col gap-8 p-7 md:p-9" data-tone="dusk">
+        <span className="eyebrow text-dusk-2">Meta · {e.estrategia}</span>
+        <div>
+          <span className="display block text-[clamp(2.6rem,4.6vw,3.75rem)] leading-none tracking-[-0.035em] text-dusk-2 tabular">{fmtCompact(m.valor, 1)}</span>
+          <span className="mt-3 block text-[15px] text-text-2">
+            {m.rotulo} · {m.custoRotulo} de <span className="text-text tabular">{fmtBRL(m.custo, { decimals: 2 })}</span>
+          </span>
+        </div>
+        <InView minHeight={64} placeholder={<div className="shimmer h-[64px] rounded-[12px]" />}>
+          <HBars
+            max={total}
+            items={[
+              {
+                key: "investimento",
+                label: "Investimento",
+                value: e.investimento,
+                display: fmtBRL(e.investimento),
+                sub: `${fmtPct(e.investimento / (total || 1), 0)} do Meta no AON · ${fmtCompact(e.impressoes, 1)} impressões · ${fmtCompact(e.cliquesLink, 1)} cliques no link`,
+                color: COR.Meta,
+              },
+            ]}
+          />
+        </InView>
+      </div>
+    </Reveal>
   );
 }
 

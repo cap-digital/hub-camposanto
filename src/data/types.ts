@@ -5,6 +5,8 @@ export interface Metricas {
   investimento: number;
   impressoes: number;
   cliques: number;
+  /** Cliques no link: só o Meta do Institucional AON (métrica principal do Tráfego). */
+  cliquesLink: number;
   /** YouTube = views TrueView; Meta = visualizações de vídeo (3 s). */
   views: number;
   /** Só Google Pesquisa (Institucional AON). Pode ser fracionária na fonte; aqui arredondada. */
@@ -27,12 +29,14 @@ export interface Totais extends Metricas {
 
 export type PlataformaId = "Google" | "Meta" | "YouTube";
 
-/** Canal = plataforma · estratégia (Google Pesquisa, Meta Alcance, YouTube Visualização). */
+/** Plataforma somada (Google Pesquisa; Meta = AON + Cremação; YouTube). */
 export interface Plataforma extends Metricas, Periodo {
   plataforma: PlataformaId;
+  /** Estratégias da plataforma, juntas por " · ". */
   estrategia: string;
-  /** "Pesquisa", "Meta Alcance", "YouTube" */
+  /** "Google Pesquisa", "Meta", "YouTube" */
   rotulo: string;
+  /** Campanhas da plataforma, juntas por " · ". */
   campanha: string;
 }
 
@@ -53,14 +57,20 @@ export interface Mes {
   total: Metricas;
 }
 
+/** Linha do mosaico = plataforma · estratégia · campanha. */
 export interface LinhaGrade {
+  id: string;
   plataforma: PlataformaId;
   estrategia: string;
   rotulo: string;
+  campanha: string;
 }
 
 /** Uma célula da grade canal × mês (só existe quando o canal rodou no mês). */
 export interface CelulaGrade extends Metricas {
+  /** id da LinhaGrade. */
+  linha: string;
+  campanha: string;
   plataforma: PlataformaId;
   estrategia: string;
   /** "2026-01" */
@@ -89,9 +99,18 @@ export interface MetaMesAon extends Metricas, Periodo {
   pctCliques: number;
 }
 
+/** Entrega de uma estratégia do Meta no AON (sem meta contratada). */
+export interface EstrategiaMetaAon extends Metricas, Periodo {
+  plataforma: "Meta";
+  estrategia: string;
+}
+
 export interface CampanhaAon extends Metricas, Periodo {
   campanha: "Institucional AON";
   canais: PlataformaId[];
+  porCanal: Partial<Record<"Google" | "Meta", Metricas & Periodo>>;
+  estrategiasMeta: EstrategiaMetaAon[];
+  /** Metas mensais = só Google Pesquisa. */
   metaMensal: { investimento: number; cliques: number };
   metas: MetaMesAon[];
   /** Meses fechados com cliques ≥ meta. */

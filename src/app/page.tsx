@@ -8,7 +8,7 @@ import { PortasCards } from "@/components/paginas/portas";
 import { GradeEstrategias } from "@/components/viz/grade-estrategias";
 import { MonthlyChart } from "@/components/viz/monthly-chart";
 import { SplitBar } from "@/components/viz/small";
-import { fmtBRL, fmtCompact, fmtDia, fmtExtenso, fmtMil, fmtNum, fmtPct } from "@/data/format";
+import { fmtCompact, fmtDia, fmtExtenso, fmtLista, fmtMil, fmtNum, fmtPct } from "@/data/format";
 import { s } from "@/data/snapshot";
 
 const maiuscula = (t: string) => t[0].toUpperCase() + t.slice(1);
@@ -17,16 +17,33 @@ export default function Home() {
   const t = s.totais;
   const [aon, cremacao] = s.campanhas;
   const google = s.plataformas.find((p) => p.plataforma === "Google")!;
-  const meta = s.plataformas.find((p) => p.plataforma === "Meta")!;
   const youtube = s.plataformas.find((p) => p.plataforma === "YouTube")!;
   const metaMeta = cremacao.metas.find((m) => m.plataforma === "Meta")!;
   const metaYt = cremacao.metas.find((m) => m.plataforma === "YouTube")!;
 
   const primeiro = s.meses[0];
   const ultimo = s.meses[s.meses.length - 1];
+  const metaAon = aon.porCanal.Meta;
   const ativasMax = Math.max(...s.meses.map((m) => m.estrategiasAtivas));
   const mesCremacao = s.meses.find((m) => m.mes === cremacao.inicio.slice(0, 7))!;
-  const soBusca = s.meses.filter((m) => m.mes < mesCremacao.mes);
+  const soAon = s.meses.filter((m) => m.mes < mesCremacao.mes);
+  const mediaAon = soAon.reduce((a, m) => a + m.total.investimento, 0) / (soAon.length || 1);
+  // Linhas do AON no mosaico que rodaram em todos os meses.
+  const rodouNoMes = new Set(s.grade.celulas.filter((c) => c.investimento > 0 || c.impressoes > 0).map((c) => `${c.linha}|${c.mes}`));
+  const metaAonLinhas = s.grade.linhas.filter((l) => l.campanha === aon.campanha && l.plataforma === "Meta");
+  const metaAonTodoMes = metaAonLinhas.filter((l) => s.grade.meses.every((m) => rodouNoMes.has(`${l.id}|${m}`)));
+  const metaAonParcial = metaAonLinhas
+    .filter((l) => !metaAonTodoMes.includes(l))
+    .map((l) => {
+      const ms = s.meses.filter((m) => rodouNoMes.has(`${l.id}|${m.mes}`));
+      return ms.length ? `${l.estrategia.toLowerCase()}, de ${ms[0].nome} a ${ms[ms.length - 1].nome}` : "";
+    })
+    .filter(Boolean);
+  const presenca = metaAonTodoMes.length
+    ? `A Pesquisa e o Meta do AON (${fmtLista(metaAonTodoMes.map((l) => l.estrategia.toLowerCase()))}) estiveram presentes em todos os ${fmtExtenso(s.meses.length)} meses${metaAonParcial.length ? `; ${fmtLista(metaAonParcial)}` : ""}`
+    : `A Pesquisa esteve presente em todos os ${fmtExtenso(s.meses.length)} meses`;
+  // Feminino de "um"/"dois" (estratégias).
+  const extensoF = (n: number) => ({ 1: "uma", 2: "duas" })[n] ?? fmtExtenso(n);
   const fechadosAon = aon.metas.filter((m) => !m.parcial);
   const mediaCliques = fechadosAon.reduce((a, m) => a + m.cliques, 0) / (fechadosAon.length || 1);
   const novAon = aon.metas.find((m) => m.parcial);
@@ -72,8 +89,8 @@ export default function Home() {
         }
         description={
           <>
-            A campanha Institucional AON manteve o Campo Santo na busca do Google o ano todo, com {fmtMil(aon.investimento)} e{" "}
-            {fmtNum(aon.cliques)} cliques. A campanha de Cremação, de {fmtDia(cremacao.contratado.inicio)} a {fmtDia(cremacao.contratado.fim)}, levou a
+            A campanha Institucional AON manteve o Campo Santo na busca do Google e no Meta o ano todo, com {fmtMil(aon.investimento)}:{" "}
+            {fmtNum(google.cliques)} cliques na busca{metaAon ? <> e {fmtCompact(metaAon.impressoes, 1)} de impressões no Facebook e no Instagram</> : null}. A campanha de Cremação, de {fmtDia(cremacao.contratado.inicio)} a {fmtDia(cremacao.contratado.fim)}, levou a
             mensagem ao Meta e ao YouTube com {fmtMil(cremacao.investimento)}.
           </>
         }
@@ -88,20 +105,29 @@ export default function Home() {
               <SplitBar
                 soPct
                 parts={[
-                  { label: `AON · Pesquisa · ${fmtMil(aon.investimento)}`, value: aon.investimento, color: "var(--amber)" },
-                  { label: `Cremação · Meta · ${fmtMil(meta.investimento)}`, value: meta.investimento, color: "var(--dusk-2)" },
+                  { label: `AON · Pesquisa · ${fmtMil(google.investimento)}`, value: google.investimento, color: "var(--amber)" },
+                  ...(metaAon ? [{ label: `AON · Meta · ${fmtMil(metaAon.investimento)}`, value: metaAon.investimento, color: "var(--dusk-2)" }] : []),
+                  { label: `Cremação · Meta · ${fmtMil(metaMeta.investimento)}`, value: metaMeta.investimento, color: "rgba(126,161,212,.5)" },
                   { label: `Cremação · YouTube · ${fmtMil(youtube.investimento)}`, value: youtube.investimento, color: "var(--copper)" },
                 ]}
               />
             </div>
             <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.14em] text-text-3">
-              Pesquisa desde {fmtDia(google.inicio)} · Meta desde {fmtDia(meta.inicio)} · YouTube desde {fmtDia(youtube.inicio)}
+              AON desde {fmtDia(aon.inicio)} · Cremação desde {fmtDia(cremacao.inicio)}
             </p>
           </Reveal>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Fato valor={fmtNum(aon.cliques)} rotulo={`cliques na busca do Google, em média ${fmtNum(mediaCliques)} por mês fechado`} tom="text-amber" />
-            <Fato valor={fmtNum(aon.conversoes)} rotulo="conversões registradas pela busca do Google" tom="text-amber" />
-            <Fato valor={fmtCompact(meta.impressoes, 0)} rotulo={`impressões no Meta (Facebook e Instagram), ${fmtPct(metaMeta.pctMeta, 0)} da meta`} tom="text-dusk-2" />
+            <Fato valor={fmtNum(google.cliques)} rotulo={`cliques na busca do Google, em média ${fmtNum(mediaCliques)} por mês fechado`} tom="text-amber" />
+            {metaAon ? (
+              <Fato
+                valor={fmtCompact(metaAon.impressoes, 1)}
+                rotulo={`impressões do Institucional AON no Facebook e no Instagram, com ${fmtCompact(metaAon.cliquesLink, 1)} cliques no link`}
+                tom="text-dusk-2"
+              />
+            ) : (
+              <Fato valor={fmtNum(aon.conversoes)} rotulo="conversões registradas pela busca do Google" tom="text-amber" />
+            )}
+            <Fato valor={fmtCompact(metaMeta.impressoes, 0)} rotulo={`impressões da Cremação no Meta, ${fmtPct(metaMeta.pctMeta, 0)} da meta`} tom="text-dusk-2" />
             <Fato valor={fmtCompact(youtube.views, 1)} rotulo={`views no YouTube, ${fmtPct(metaYt.pctMeta, 0)} da meta`} tom="text-copper" />
           </div>
         </div>
@@ -112,14 +138,14 @@ export default function Home() {
         eyebrow="Mês a mês"
         title={
           <>
-            A busca sustentou o ano; a Cremação <em>entrou em {mesCremacao.nome}.</em>
+            O AON sustentou o ano; a Cremação <em>entrou em {mesCremacao.nome}.</em>
           </>
         }
         description={
           <>
-            De {primeiro.nome} a {soBusca[soBusca.length - 1].nome}, só a busca do Google, com {fmtBRL(aon.metaMensal.investimento, { decimals: 0 })} por mês. A
-            partir de {fmtDia(meta.inicio)} o Meta e, em {fmtDia(youtube.inicio)}, o YouTube somam a campanha de Cremação: em {mesCremacao.nome} o
-            investimento chega a {fmtMil(mesCremacao.total.investimento)} e as impressões, a {fmtCompact(mesCremacao.total.impressoes, 0)}.
+            De {primeiro.nome} a {soAon[soAon.length - 1].nome}, só o Institucional AON, na busca do Google e no Meta, com cerca de {fmtMil(mediaAon)} por mês. A
+            partir de {fmtDia(metaMeta.inicio)} o Meta e, em {fmtDia(youtube.inicio)}, o YouTube somam a campanha de Cremação: em {mesCremacao.nome} o
+            investimento chega a {fmtMil(mesCremacao.total.investimento)} e as impressões, a {fmtCompact(mesCremacao.total.impressoes, 1)}.
             {ultimo.parcial && <> {maiuscula(ultimo.nome)} vai até {fmtDia(s.periodo.fim)}.</>}
           </>
         }
@@ -141,13 +167,13 @@ export default function Home() {
         eyebrow="O ano em mosaico"
         title={
           <>
-            De {primeiro.estrategiasAtivas} para {ativasMax} <em>canais no ar.</em>
+            De {primeiro.estrategiasAtivas} para {ativasMax} <em>estratégias no ar.</em>
           </>
         }
-        description={`Cada linha é um canal, cada coluna um mês; quanto mais intensa a célula, maior o investimento, e vazia quando o canal não rodou. A Pesquisa esteve presente em todos os ${fmtExtenso(s.meses.length)} meses; Meta Alcance e YouTube entraram com a Cremação em ${mesCremacao.nome}.${ultimo.parcial ? ` Em ${ultimo.nome}, até ${fmtDia(s.periodo.fim)}, ${ultimo.estrategiasAtivas === 1 ? "um canal rodou" : `os ${fmtExtenso(ultimo.estrategiasAtivas)} rodaram`}${novAon ? `; a busca retomou em ${fmtDia(novAon.inicio)}` : ""}.` : ""}`}
+        description={`Cada linha é uma estratégia, cada coluna um mês; quanto mais intensa a célula, maior o investimento, e vazia quando a estratégia não rodou. ${presenca}; o Meta Alcance da Cremação e o YouTube entraram em ${mesCremacao.nome}.${ultimo.parcial ? ` Em ${ultimo.nome}, até ${fmtDia(s.periodo.fim)}, ${ultimo.estrategiasAtivas === 1 ? "uma estratégia rodou" : `${extensoF(ultimo.estrategiasAtivas)} rodaram`}${novAon ? `; a busca retomou em ${fmtDia(novAon.inicio)}` : ""}.` : ""}`}
       >
         <ChartFrame
-          eyebrow="Canal × mês · investimento"
+          eyebrow="Estratégia × mês · investimento"
           title="O que rodou em cada mês"
           subtitle={<span className="no-print">Passe o cursor numa célula para ver investimento, métrica principal e campanha.</span>}
           span={3}
@@ -166,7 +192,7 @@ export default function Home() {
               titulo: "Mídia",
               numero: fmtCompact(t.impressoes, 2),
               legenda: "impressões no Google, no Meta e no YouTube",
-              texto: "Anúncios e palavras-chave da busca, público do Meta por idade e gênero, retenção do vídeo no YouTube e os criativos da Cremação.",
+              texto: "Anúncios e palavras-chave da busca, público do Meta por idade e gênero, retenção do vídeo no YouTube e os criativos das duas campanhas.",
               tom: "amber",
             },
             {
@@ -174,7 +200,7 @@ export default function Home() {
               titulo: "Campanhas",
               numero: `${fmtNum(t.campanhas)} campanhas`,
               legenda: "Institucional AON · Cremação",
-              texto: "O que cada campanha recebeu e entregou, frente às metas contratadas: cliques por mês no AON, impressões e views na Cremação.",
+              texto: "O que cada campanha recebeu e entregou: cliques por mês frente à meta e a entrega no Meta no AON, impressões e views na Cremação.",
               tom: "dusk",
             },
           ]}

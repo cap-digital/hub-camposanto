@@ -70,19 +70,21 @@ export function fmtAtualizado(iso: string): string {
 
 /* ------------------------------------------------- métrica principal por estratégia */
 
-type Base = { plataforma: string; estrategia: string; investimento: number; impressoes: number; cliques: number; views: number };
-type Chave = "cliques" | "impressoes" | "views";
+type Base = { plataforma: string; estrategia: string; investimento: number; impressoes: number; cliques: number; cliquesLink: number; views: number };
+type Chave = "cliques" | "cliquesLink" | "impressoes" | "views";
 
 /** Metas do contrato: cada estratégia é medida por uma métrica e um custo. "Alcance" é nome de estratégia, nunca métrica. */
 const METRICA: Record<string, { chave: Chave; rotulo: string; custo: string }> = {
   "Google|Pesquisa": { chave: "cliques", rotulo: "cliques", custo: "CPC" },
+  "Meta|Tráfego": { chave: "cliquesLink", rotulo: "cliques no link", custo: "CPC" },
   "Meta|Alcance": { chave: "impressoes", rotulo: "impressões", custo: "CPM" },
+  "Meta|Posts de oportunidade": { chave: "impressoes", rotulo: "impressões", custo: "CPM" },
   "YouTube|Visualização": { chave: "views", rotulo: "views", custo: "CPV" },
 };
 
 export interface MetricaPrincipal {
   valor: number;
-  /** "cliques", "impressões", "views" */
+  /** "cliques", "cliques no link", "impressões", "views" */
   rotulo: string;
   custo: number;
   /** "CPC", "CPM", "CPV" */

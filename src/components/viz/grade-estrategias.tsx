@@ -7,14 +7,16 @@ import { fmtBRL, fmtDia, fmtMetricaPrincipal, rodou } from "@/data/format";
 
 const COR: Record<string, string> = { Google: "var(--amber)", Meta: "var(--dusk-2)", YouTube: "var(--copper)" };
 const RGB: Record<string, string> = { Google: "227,164,103", Meta: "126,161,212", YouTube: "201,105,76" };
+const PLATAFORMA: Record<string, string> = { Google: "Google Pesquisa", Meta: "Meta", YouTube: "YouTube" };
 /** Hachura do mês parcial por cima da cor da célula (mesma leitura do gráfico mensal). */
 const HACHURA = "repeating-linear-gradient(135deg, rgba(21,18,15,.6) 0 3px, transparent 3px 6px)";
 
-/** Investimento por canal × mês, em escala raiz, na cor do canal. Célula vazia = o canal não rodou no mês. */
+/** Investimento por linha (plataforma · estratégia · campanha) × mês, em escala raiz, na cor do canal. Célula vazia = o canal não rodou no mês. */
 export function GradeEstrategias({ grade, meses, fim }: { grade: Grade; meses: Mes[]; /** Último dia com dados. */ fim: string }) {
   // Investimento 0 e impressões 0 = não rodou: célula vazia, sem hover.
   const ativas = grade.celulas.filter(rodou);
-  const celulas = new Map(ativas.map((c) => [`${c.plataforma}|${c.estrategia}|${c.mes}`, c]));
+  const celulas = new Map(ativas.map((c) => [`${c.linha}|${c.mes}`, c]));
+  const plataformas = [...new Set(grade.linhas.map((l) => l.plataforma))];
   const max = Math.max(...ativas.map((c) => c.investimento), 1);
   const mesInfo = new Map(meses.map((m) => [m.mes, m]));
   const [hi, setHi] = useState<CelulaGrade | null>(null);
@@ -34,14 +36,14 @@ export function GradeEstrategias({ grade, meses, fim }: { grade: Grade; meses: M
             );
           })}
           {grade.linhas.map((l, r) => (
-            <div key={`${l.plataforma}|${l.estrategia}`} className="contents">
+            <div key={l.id} className="contents">
               {/* Rótulo fixo à esquerda quando a grade rola na horizontal (telas estreitas). */}
               <span className="sticky left-0 z-10 flex h-full min-w-0 items-center gap-2 bg-[var(--surface-2)] pr-3 text-[12.5px] text-text-2">
                 <span className="size-2 shrink-0 rounded-full" style={{ background: COR[l.plataforma] }} />
                 <span className="truncate">{l.rotulo}</span>
               </span>
               {grade.meses.map((m, col) => {
-                const c = celulas.get(`${l.plataforma}|${l.estrategia}|${m}`);
+                const c = celulas.get(`${l.id}|${m}`);
                 const t = c ? Math.sqrt(c.investimento / max) : 0;
                 const ativo = c && hi === c;
                 return (
@@ -70,10 +72,10 @@ export function GradeEstrategias({ grade, meses, fim }: { grade: Grade; meses: M
       </div>
 
       <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-[12.5px] text-text-2">
-        {grade.linhas.map((l) => (
-          <span key={l.plataforma} className="flex items-center gap-2">
-            <span className="size-2 rounded-full" style={{ background: COR[l.plataforma] }} />
-            {l.rotulo}
+        {plataformas.map((p) => (
+          <span key={p} className="flex items-center gap-2">
+            <span className="size-2 rounded-full" style={{ background: COR[p] }} />
+            {PLATAFORMA[p] ?? p}
           </span>
         ))}
         <span className="flex items-center gap-2">
@@ -92,7 +94,7 @@ export function GradeEstrategias({ grade, meses, fim }: { grade: Grade; meses: M
       <p className="no-print mt-4 min-h-10 font-mono text-[11px] uppercase leading-relaxed tracking-[0.14em] text-text-3">
         {hi ? (
           <>
-            {grade.linhas.find((l) => l.plataforma === hi.plataforma)?.rotulo ?? hi.estrategia} · {mesInfo.get(hi.mes)?.nome ?? hi.mes} ·{" "}
+            {grade.linhas.find((l) => l.id === hi.linha)?.rotulo ?? hi.estrategia} · {mesInfo.get(hi.mes)?.nome ?? hi.mes} ·{" "}
             <span className="text-text">
               {fmtBRL(hi.investimento)} · {fmtMetricaPrincipal(hi)}
             </span>{" "}

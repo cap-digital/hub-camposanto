@@ -14,32 +14,34 @@ export const metadata: Metadata = { title: "Mídia · Campo Santo" };
 
 export default function Midia() {
   const t = s.totais;
-  const [, cremacao] = s.campanhas;
+  const meta = s.plataformas.find((p) => p.plataforma === "Meta")!;
   const youtube = s.plataformas.find((p) => p.plataforma === "YouTube")!;
   const b = s.busca;
   const v = s.video;
   const fimYt = v.youtube.p25 ? v.youtube.p100 / v.youtube.p25 : 0;
 
-  // Público do Meta: faixa e gênero com mais impressões (texto da seção).
+  // Público do Meta (AON + Cremação): só idade e gênero informados, como no gráfico.
+  const publico = s.publico.meta.filter((l) => l.idade !== "desconhecida" && l.genero !== "unknown");
   const porFaixa = new Map<string, number>();
-  for (const l of s.publico.meta) if (l.idade !== "desconhecida") porFaixa.set(l.idade, (porFaixa.get(l.idade) ?? 0) + l.impressoes);
-  const totalPublico = s.publico.meta.reduce((a, l) => a + l.impressoes, 0) || 1;
+  for (const l of publico) porFaixa.set(l.idade, (porFaixa.get(l.idade) ?? 0) + l.impressoes);
+  const totalPublico = publico.reduce((a, l) => a + l.impressoes, 0) || 1;
   const faixasTop = [...porFaixa.entries()].sort((a, b) => b[1] - a[1]);
-  const semGenero = s.publico.meta.filter((l) => l.genero === "unknown").reduce((a, l) => a + l.impressoes, 0) / totalPublico;
   const acima45 = ["45-54", "55-64", "65+"].reduce((a, f) => a + (porFaixa.get(f) ?? 0), 0) / totalPublico;
+  const nMeta = s.criativos.filter((c) => c.plataforma === "Meta").length;
+  const nYt = s.criativos.filter((c) => c.plataforma === "YouTube").length;
 
   return (
     <main>
       <PageHero
         tone="amber"
         image="none"
-        eyebrow="Mídia · Google Pesquisa · Meta Alcance · YouTube"
+        eyebrow="Mídia · Google Pesquisa · Meta · YouTube"
         title={
           <>
             Onde a mensagem <em>chegou.</em>
           </>
         }
-        description={`${fmtMil(t.investimento)} em três canais: a busca do Google ao longo do ano e, na campanha de Cremação, o Meta e o YouTube. ${fmtCompact(t.impressoes, 2)} de impressões e ${fmtCompact(t.cliques, 1)} cliques.`}
+        description={`${fmtMil(t.investimento)} em três canais: a busca do Google e o Meta ao longo do ano e, a partir de ${fmtDia(youtube.inicio)}, o YouTube. ${fmtCompact(t.impressoes, 2)} de impressões e ${fmtCompact(t.cliques, 1)} cliques.`}
         kpis={
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5">
             <KpiTile label="Investimento" value={t.investimento} format="compactCurrency" decimals={1} tone="amber" hint="Google + Meta + YouTube" />
@@ -120,24 +122,33 @@ export default function Midia() {
 
       <Section
         index="02"
-        eyebrow="Público do Meta · Cremação"
+        eyebrow="Meta · Institucional AON e Cremação"
         tone="dusk"
         title={
           <>
-            Para <em>quem</em> a Cremação foi entregue.
+            Para <em>quem</em> o Meta entregou.
           </>
         }
         description={
           <>
-            No Meta, a faixa de {faixasTop[0]?.[0].replace("-", " a ")} anos recebeu {fmtPct((faixasTop[0]?.[1] ?? 0) / totalPublico, 0)} das impressões da campanha de
-            Cremação; pessoas de 45 anos ou mais, {fmtPct(acima45, 0)}. Em {fmtPct(semGenero, 0)} das impressões o Meta não informa o gênero.
+            No Facebook e no Instagram, {fmtMil(meta.investimento)} levaram as duas campanhas a {fmtCompact(meta.impressoes, 1)} de impressões. A faixa de{" "}
+            {faixasTop[0]?.[0].replace("-", " a ")} anos recebeu {fmtPct((faixasTop[0]?.[1] ?? 0) / totalPublico, 0)} das impressões com idade e gênero informados;
+            pessoas de 45 anos ou mais, {fmtPct(acima45, 0)}.
             <span className="no-print"> Escolha o tipo de entrega.</span>
           </>
         }
       >
-        <ChartFrame eyebrow="Meta · gênero × idade" title="Entrega por gênero e idade" minHeight={420} tone="dusk">
-          <EntregaPublico linhas={s.publico.meta} />
-        </ChartFrame>
+        <div className="grid gap-4 lg:grid-cols-[minmax(0,320px)_1fr]">
+          <div className="grid grid-cols-2 content-start gap-3 lg:grid-cols-1">
+            <KpiTile label="Investimento · Meta" value={meta.investimento} format="compactCurrency" decimals={1} tone="dusk" hint="Institucional AON e Cremação" />
+            <KpiTile label="Impressões" value={meta.impressoes} format="compact" decimals={2} hint={`CPM de ${fmtBRL(meta.cpm, { decimals: 2 })}`} />
+            <KpiTile label="Cliques" value={meta.cliques} format="compact" decimals={1} hint={`CTR de ${fmtPct(meta.ctr, 2)}`} />
+            <KpiTile label="Cliques no link" value={meta.cliquesLink} format="compact" decimals={1} hint={`CPC de ${fmtBRL(meta.investimento / (meta.cliquesLink || 1), { decimals: 2 })}`} />
+          </div>
+          <ChartFrame eyebrow="Meta · gênero × idade" title="Entrega por gênero e idade" minHeight={420} tone="dusk">
+            <EntregaPublico linhas={s.publico.meta} />
+          </ChartFrame>
+        </div>
       </Section>
 
       <Section
@@ -149,7 +160,7 @@ export default function Midia() {
             No YouTube, {fmtPct(fimYt, 0)} de quem passou de 25% <em>viu até o fim.</em>
           </>
         }
-        description={`${fmtNum(youtube.views)} views no YouTube, a ${fmtBRL(youtube.cpv, { decimals: 2 })} cada. A curva mostra, de quem chegou a 25% do vídeo, quantos seguiram até cada marco; os quartis do YouTube são estimados. No Meta, o vídeo teve ${fmtNum(v.meta.views)} visualizações.`}
+        description={`${fmtNum(youtube.views)} views no YouTube, a ${fmtBRL(youtube.cpv, { decimals: 2 })} cada. A curva mostra, de quem chegou a 25% do vídeo, quantos seguiram até cada marco; os quartis do YouTube são estimados. No Meta, o vídeo da Cremação teve ${fmtNum(v.meta.views)} visualizações.`}
       >
         <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr]">
           <ChartFrame eyebrow="YouTube · retenção de vídeo" title="Quem ficou até o fim" footer={`${fmtNum(v.youtube.views)} views · quartis estimados`} minHeight={280} tone="copper">
@@ -166,24 +177,23 @@ export default function Midia() {
           </ChartFrame>
           <div className="grid grid-cols-2 content-start gap-3 lg:grid-cols-1">
             <KpiTile label="Views · YouTube" value={youtube.views} format="number" tone="copper" hint={`CPV de ${fmtBRL(youtube.cpv, { decimals: 2 })} · desde ${fmtDia(youtube.inicio)}`} />
-            <KpiTile label="Visualizações · Meta" value={v.meta.views} format="number" tone="dusk" hint={`Vídeo de 3 s ou mais · ${fmtNum(v.meta.thruplays)} ThruPlays`} />
+            <KpiTile label="Visualizações · Meta" value={v.meta.views} format="number" tone="dusk" hint={`Cremação · 3 s ou mais · ${fmtNum(v.meta.thruplays)} ThruPlays`} />
           </div>
         </div>
       </Section>
 
       <Section
         index="04"
-        eyebrow={`Criativos · campanha ${cremacao.campanha}`}
+        eyebrow="Criativos · Institucional AON e Cremação"
         title={
           <>
-            As peças <em>da Cremação.</em>
+            As peças <em>das duas campanhas.</em>
           </>
         }
         description={
           <>
-            {s.criativos.length} criativos: {s.criativos.filter((c) => c.plataforma === "Meta").length} no Meta e{" "}
-            {s.criativos.filter((c) => c.plataforma === "YouTube").length} no YouTube, com a métrica principal de cada canal (impressões no Meta, views no
-            YouTube) e o investimento.
+            {s.criativos.length} criativos: {nMeta} no Meta e {nYt} no YouTube, ordenados pela métrica principal de cada canal (impressões no Meta, views
+            no YouTube), com o investimento.
             <span className="no-print"> Abra o anúncio quando houver link.</span>
           </>
         }
