@@ -232,7 +232,7 @@ function EntregaMeta({ e, total }: { e: EstrategiaMetaAon; total: number }) {
                 label: "Investimento",
                 value: e.investimento,
                 display: fmtBRL(e.investimento),
-                sub: `${fmtPct(e.investimento / (total || 1), 0)} do Meta no AON · ${fmtCompact(e.impressoes, 1)} impressões · ${fmtCompact(e.cliquesLink, 1)} cliques no link`,
+                sub: `${fmtPct(e.investimento / (total || 1), 0)} do investimento Meta no AON · ${fmtCompact(e.impressoes, 1)} impressões · ${fmtCompact(e.cliquesLink, 1)} cliques no link`,
                 color: COR.Meta,
               },
             ]}
@@ -252,7 +252,7 @@ function MetaCanal({ m, tone }: { m: MetaCanalCremacao; tone: "dusk" | "copper" 
       <div className="hub-card flex h-full flex-col gap-8 p-7 md:p-9" data-tone={tone}>
         <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
           <span className={`eyebrow ${tone === "dusk" ? "text-dusk-2" : "text-copper"}`}>{CANAL[m.plataforma]}</span>
-          <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-text-3">desde {fmtDia(m.inicio)}</span>
+          <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-text-3">no ar desde {fmtDia(m.inicio)}</span>
         </div>
         <div>
           <span

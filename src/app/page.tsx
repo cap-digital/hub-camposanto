@@ -25,7 +25,7 @@ export default function Home() {
   const ultimo = s.meses[s.meses.length - 1];
   const metaAon = aon.porCanal.Meta;
   const ativasMax = Math.max(...s.meses.map((m) => m.estrategiasAtivas));
-  const mesCremacao = s.meses.find((m) => m.mes === cremacao.inicio.slice(0, 7))!;
+  const mesCremacao = s.meses.find((m) => m.mes === cremacao.contratado.inicio.slice(0, 7))!;
   const soAon = s.meses.filter((m) => m.mes < mesCremacao.mes);
   const mediaAon = soAon.reduce((a, m) => a + m.total.investimento, 0) / (soAon.length || 1);
   // Linhas do AON no mosaico que rodaram em todos os meses.
@@ -113,7 +113,12 @@ export default function Home() {
               />
             </div>
             <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.14em] text-text-3">
-              AON desde {fmtDia(aon.inicio)} · Cremação desde {fmtDia(cremacao.inicio)}
+              <span className="block">
+                AON {fmtDia(aon.inicio)} → {fmtDia(aon.fim)}
+              </span>
+              <span className="mt-1 block">
+                Cremação {fmtDia(cremacao.contratado.inicio)} → {fmtDia(cremacao.contratado.fim)}
+              </span>
             </p>
           </Reveal>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -144,7 +149,8 @@ export default function Home() {
         description={
           <>
             De {primeiro.nome} a {soAon[soAon.length - 1].nome}, só o Institucional AON, na busca do Google e no Meta, com cerca de {fmtMil(mediaAon)} por mês. A
-            partir de {fmtDia(metaMeta.inicio)} o Meta e, em {fmtDia(youtube.inicio)}, o YouTube somam a campanha de Cremação: em {mesCremacao.nome} o
+            campanha de Cremação, de {fmtDia(cremacao.contratado.inicio)} a {fmtDia(cremacao.contratado.fim)}, soma o Meta e, com veiculação a partir de{" "}
+            {fmtDia(youtube.inicio)}, o YouTube: em {mesCremacao.nome} o
             investimento chega a {fmtMil(mesCremacao.total.investimento)} e as impressões, a {fmtCompact(mesCremacao.total.impressoes, 1)}.
             {ultimo.parcial && <> {maiuscula(ultimo.nome)} vai até {fmtDia(s.periodo.fim)}.</>}
           </>

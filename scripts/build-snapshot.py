@@ -223,6 +223,17 @@ def palavras_chave(linhas, de, ate, cliques_pesquisa):
     return {"porFrente": {AON: lista}, "totais": {AON: totais}}
 
 
+def atualizado_em(raw, meta_aon_src):
+    """Dado mais recente: timestamp da função ou a extração do Meta AON (data de modificação do arquivo)."""
+    datas = []
+    if raw.get("timestamp"):
+        datas.append(datetime.fromisoformat(raw["timestamp"].replace("Z", "+00:00")))
+    if meta_aon_src:
+        datas.append(datetime.fromtimestamp(os.path.getmtime(meta_aon_src), timezone.utc))
+    d = max(datas) if datas else datetime.now(timezone.utc)
+    return d.isoformat(timespec="milliseconds").replace("+00:00", "Z")
+
+
 def main(src, dst, baixar_imagens, de, ate, meta_aon_src=None):
     raw = json.load(open(src, encoding="utf-8"))
     meta_aon = json.load(open(meta_aon_src, encoding="utf-8")) if meta_aon_src else {}
@@ -529,7 +540,7 @@ def main(src, dst, baixar_imagens, de, ate, meta_aon_src=None):
     snapshot = {
         "cliente": "Cemitério Campo Santo",
         "periodo": {"inicio": inicio, "fim": fim},
-        "atualizadoEm": raw.get("timestamp") or datetime.now(timezone.utc).isoformat(),
+        "atualizadoEm": atualizado_em(raw, meta_aon_src),
         "totais": fecha(tot, {"meses": len(meses), "campanhas": 2}),
         "plataformas": canais,
         "meses": meses,
